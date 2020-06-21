@@ -3,6 +3,7 @@
 Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script](https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script/badge)](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 

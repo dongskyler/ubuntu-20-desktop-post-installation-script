@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-cd
+cd ~ || exit 1
 
 # update & upgrade
 printf "Updating and upgrading...\n"
@@ -95,7 +95,7 @@ printf "Installing Node Version Manager...\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-exec $SHELL
+source ~/.bashrc
 command -v nvm
 
 printf "Installing Node.js and Node Package Manager...\n"
@@ -116,10 +116,10 @@ printf "Installing Ruby...\n"
 git clone https://github.com/rbenv/rbenv.git ~/.rbenv
 echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >>~/.bashrc
 echo 'eval "$(rbenv init -)"' >>~/.bashrc
-exec $SHELL
+source ~/.bashrc
 git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>~/.bashrc
-exec $SHELL
+source ~/.bashrc
 rbenv install 2.7.1
 rbenv global 2.7.1
 ruby -v
@@ -173,7 +173,7 @@ for i in {10..1}; do
   read -t 1 -n 1 -r
   if [ $? == 0 ]; then
     printf "Reboot aborted.\n"
-    exit 0
+    exit
   fi
 done
 

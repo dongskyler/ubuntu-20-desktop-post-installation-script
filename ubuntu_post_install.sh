@@ -170,10 +170,10 @@ printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
 
 for i in {10..1}; do
   printf "$i\n"
-  read -t 1 -n 1
+  read -t 1 -n 1 -r
   if [ $? == 0 ]; then
     printf "Reboot aborted.\n"
-    exit
+    exit 0
   fi
 done
 

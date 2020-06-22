@@ -7,16 +7,15 @@ fi
 
 cd $HOME || exit 1
 
+printf "\n# Copy code BELOW after switching to Zsh\n" >> $HOME/.bashrc
+
 # update & upgrade
 printf "Updating and upgrading...\n"
 sudo apt update -y
 sudo apt upgrade -y
 
 printf "Installing some dependencies...\n"
-sudo apt install zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
-
-# python-dev has no installation candidte
-# Use python-dev-is-python3?
+sudo apt install zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev python-dev-is-python2 -y
 
 printf "Installing cURL...\n"
 sudo apt install curl -y
@@ -39,9 +38,10 @@ vim --version
 
 printf "Installing Visual Studio Code...\n"
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/ -y
+sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
 sudo sh -c 'printf "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo apt install apt-transport-https -y
+sudo apt update
 sudo apt install code -y
 
 printf "Installing Nginx...\n"
@@ -52,7 +52,7 @@ sudo apt install mysql-server -y
 
 printf "Installing MongoDB Community Edition...\n"
 wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 sudo apt update
 sudo apt install mongodb-org -y
 
@@ -73,23 +73,19 @@ printf "Installing Zoom...\n"
 wget https://zoom.us/client/latest/zoom_amd64.deb -P $HOME/Downloads/
 sudo apt install $HOME/Downloads/zoom_amd64.deb -y
 
-printf "Installing PulseAudio...\n"
-sudo apt install pulseaudio -y
+printf "Installing PulseAudio and PavuControl...\n"
+sudo apt install pulseaudio pavucontrol -y
 
-# printf "Installing PavuControl...\n"
-# sudo apt install pavucontrol -y
-
-# printf "Installing Flameshot...\n"
-# sudo apt install flameshot -y
+printf "Installing Flameshot...\n"
+sudo apt install flameshot -y
 
 printf "Installing ClamAV...\n"
 sudo apt install clamav-daemon -y
-# sudo apt install clamtk -y
+sudo apt install clamtk -y
 
-printf "Installing VirtualBox and its Extension Pack...\n"
-sudo add-apt-repository "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian bionic contrib"
-wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+printf "Installing VirtualBox...\n"
+wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list'
 sudo apt update
 sudo apt install virtualbox-6.1 -y
 sudo apt install virtualbox-ext-pack -y
@@ -108,20 +104,20 @@ npm --version
 
 printf "Installing Yarn...\n"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-printf "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update
 sudo apt install --no-install-recommends yarn -y
 export PATH="$PATH:/opt/yarn-[version]/bin"
 export PATH="$PATH:$(yarn global bin)"
 yarn --version
 
-printf "Installing Ruby...\n"
+printf "Installing Ruby... This could take a while.\n"
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >>$HOME/.bashrc
-echo 'eval "$(rbenv init -)"' >>$HOME/.bashrc
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
+echo 'eval "$(rbenv init -)"' >> $HOME/.bashrc
 source $HOME/.bashrc
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
-echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >>$HOME/.bashrc
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> $HOME/.bashrc
 source $HOME/.bashrc
 rbenv install 2.7.1
 rbenv global 2.7.1
@@ -139,7 +135,7 @@ sudo apt install python3-pip python3-venv -y
 printf "Create a Python virtual environment for Jupyter Notebook called 'jupyter'.\n"
 python3 -m venv jupyter
 
-printf "Installing TexLive... This might take a while.\n"
+printf "Installing TexLive... This could take a while.\n"
 sudo apt install texlive-full -y
 
 printf "Installing Zsh...\n"
@@ -151,7 +147,7 @@ printf "Set Zsh theme to 'bira'...\n"
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' $HOME/.zshrc
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
-echo "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>"$HOME/.zshrc"
+echo "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >> "$HOME/.zshrc"
 
 printf "Make Zsh the default shell.\n"
 chsh -s /bin/zsh
@@ -166,6 +162,9 @@ rm $HOME/Downloads/google-chrome-stable_current_amd64.deb
 rm $HOME/Downloads/slack-desktop-*-amd64.deb
 rm $HOME/Downloads/skypeforlinux-64.deb
 rm $HOME/Downloads/zoom_amd64.deb
+sudo apt autoremove -y
+
+printf "\n# Copy code ABOVE after switching to Zsh\n" >> $HOME/.bashrc
 
 printf "All done!"
 

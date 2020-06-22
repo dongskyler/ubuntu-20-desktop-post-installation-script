@@ -15,7 +15,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ---
 
-## Programs installed
+## Programs to be installed
 
 - ClamAV
 - cURL
@@ -27,17 +27,21 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - MongoDB Community Edition
 - MySQL
 - Nginx
-- Node.js, nvm, npm, and yarn
+- Node.js
+- Node Version Manager (nvm)
+- Node Package Manager (npm)
 - PulseAudio
 - Python
 - Skype
 - Slack
-- Ruby and Rails
+- Rails
+- Ruby
 - TexLive
 - Vim
 - VirtualBox
 - Visual Studio Code
 - Wget
+- Yarn
 - Zoom
 - Zsh
 

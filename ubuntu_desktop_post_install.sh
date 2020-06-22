@@ -166,6 +166,8 @@ sudo apt autoremove -y
 
 printf "\n# Copy code ABOVE after switching to Zsh\n" >> $HOME/.bashrc
 
+mkdir $HOME/Sites
+
 printf "All done!"
 
 printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"

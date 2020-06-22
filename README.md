@@ -23,7 +23,6 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Git
 - GnuPG
 - Google Chrome
-- TexLive
 - MongoDB Community Edition
 - MySQL
 - Nginx
@@ -33,6 +32,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Skype
 - Slack
 - Ruby and Rails
+- TexLive
 - Vim
 - VirtualBox
 - Visual Studio Code

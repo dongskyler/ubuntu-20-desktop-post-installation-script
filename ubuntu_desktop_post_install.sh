@@ -7,7 +7,7 @@ fi
 
 cd $HOME || exit 1
 
-BEGINNING_OF_BASHRC = '# BEGINNING OF CUSTOM BASHRC'
+BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
 printf "\n$BEGINNING_OF_BASHRC\n" >> $HOME/.bashrc
 
 # update & upgrade
@@ -159,7 +159,7 @@ printf "Updating and upgrading one last time...\n"
 sudo apt update -y
 sudo apt upgrade -y
 
-END_OF_BASHRC = '# END OF CUSTOM BASHRC'
+END_OF_BASHRC='# END OF CUSTOM BASHRC'
 printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."

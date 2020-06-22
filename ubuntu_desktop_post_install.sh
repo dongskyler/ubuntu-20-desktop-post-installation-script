@@ -85,12 +85,12 @@ printf "Installing Zoom...\n"
 wget https://zoom.us/client/latest/zoom_amd64.deb -P $HOME/Downloads/
 sudo apt install $HOME/Downloads/zoom_amd64.deb -y
 
-# printf "Installing VirtualBox...\n"
-# wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
-# sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list'
-# sudo apt update
-# sudo apt install virtualbox-6.1 -y
-# sudo apt install virtualbox-ext-pack -y
+printf "Installing VirtualBox...\n"
+wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list'
+sudo apt update
+sudo apt install virtualbox-6.1 -y
+sudo apt install virtualbox-ext-pack -y
 
 printf "Installing Node Version Manager...\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -137,8 +137,8 @@ sudo apt install python3-pip python3-venv -y
 printf "Create a Python virtual environment for Jupyter Notebook called 'jupyter'.\n"
 python3 -m venv jupyter
 
-# printf "Installing TexLive... This could take a while.\n"
-# sudo apt install texlive-full -y
+printf "Installing TexLive... This could take a while.\n"
+sudo apt install texlive-full -y
 
 printf "Installing Zsh...\n"
 sudo apt install zsh -y
@@ -164,6 +164,9 @@ printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
 awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" $HOME/.bashrc >> $HOME/.zshrc
+
+printf "Creating some directories..."
+mkdir $HOME/Sites
 
 printf "Cleaning up...\n"
 rm $HOME/Downloads/google-chrome-stable_current_amd64.deb

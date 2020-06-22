@@ -19,6 +19,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 - ClamAV
 - cURL
+- elinks
 - Flameshot
 - Git
 - GnuPG

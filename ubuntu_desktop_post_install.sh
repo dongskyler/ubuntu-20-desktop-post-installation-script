@@ -41,7 +41,7 @@ wget --version
 
 printf "Installing VirtualBox...\n"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
-sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list\n'
+sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
 sudo apt update
 sudo apt install -y virtualbox-6.1
 
@@ -71,7 +71,9 @@ sudo apt install -y \
   libxml2-dev \
   libxslt1-dev \
   libcurl4-openssl-dev \
-  libffi-dev
+  libffi-dev \
+  dconf-cli \
+  uuid-runtime
 
 printf "Installing GnuPG...\n"
 sudo apt install -y gnupg gnupg-agent
@@ -159,8 +161,7 @@ printf "Installing Python 3...\n"
 sudo apt install -y python3-pip
 
 printf "Installing virtualenv via pip3...\n"
-sudo pip3 install -y virtualenv
-sudo pip3 install -y virtualenvwrapper
+yes | sudo pip3 install virtualenv virtualenvwrapper
 
 mkdir $HOME/.virtualenv
 export WORKON_HOME=$HOME/.virtualenv
@@ -175,7 +176,7 @@ mkvirtualenv jupyter
 
 printf "Inside 'jupyter' virtual environment, install Jupyter Notebook, numpy, pandas and matplotlib.\n"
 workon jupyter
-sudo pip install -y -U notebook numpy pandas matplotlib
+yes | sudo pip3 install -U notebook numpy pandas matplotlib
 deactivate jupyter
 
 printf "Installing Node Version Manager...\n"
@@ -254,6 +255,20 @@ rm $HOME/Downloads/skypeforlinux-64.deb
 rm $HOME/Downloads/zoom_amd64.deb
 sudo apt autoremove
 
+printf "Configuring the system...\n"
+
+printf "Installing terminal theme 'Earthsong'...\n"
+printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
+
+# dconf list /org/gnome/terminal/legacy/profiles:/
+# gsettings set org.gnome.Terminal.ProfilesList default ""
+
+printf "Configuring favorite apps...\n"
+gsettings set org.gnome.shell favorite-apps \
+"['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
+'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
+'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
+
 printf \
 "************************************************************\n\
 All done!\n\
@@ -265,7 +280,7 @@ for i in {10..1}; do
   printf "$i\n"
   read -t 1 -n 1 -r
   if [ $? == 0 ]; then
-    printf "Reboot aborted.\n"
+    printf "Reboot aborted.\nAll done!\n"
     exit 0
   fi
 done

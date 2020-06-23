@@ -41,7 +41,7 @@ wget --version
 
 printf "Installing VirtualBox...\n"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
-sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list\n'
+sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
 sudo apt update
 sudo apt install -y virtualbox-6.1
 
@@ -254,6 +254,14 @@ rm $HOME/Downloads/skypeforlinux-64.deb
 rm $HOME/Downloads/zoom_amd64.deb
 sudo apt autoremove
 
+printf "Configuring the system...\n"
+
+printf "Configuring favorite apps...\n"
+gsettings set org.gnome.shell favorite-apps \
+"['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
+'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
+'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
+
 printf \
 "************************************************************\n\
 All done!\n\
@@ -265,7 +273,7 @@ for i in {10..1}; do
   printf "$i\n"
   read -t 1 -n 1 -r
   if [ $? == 0 ]; then
-    printf "Reboot aborted.\n"
+    printf "Reboot aborted.\nAll done!\n"
     exit 0
   fi
 done

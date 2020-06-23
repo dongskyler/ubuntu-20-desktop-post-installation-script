@@ -195,10 +195,10 @@ yarn --version
 printf "Installing Ruby... This could take a while.\n"
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> $HOME/.bashrc
-printf "eval $(rbenv init -)\n" >> $HOME/.bashrc
+printf 'eval "$(rbenv init -)"\n' >> $HOME/.bashrc
 source $HOME/.bashrc
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
-printf "export PATH=\"$HOME/.rbenv/plugins/ruby-build/bin:$PATH\"\n" >> $HOME/.bashrc
+printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' >> $HOME/.bashrc
 source $HOME/.bashrc
 rbenv install 2.7.1
 rbenv global 2.7.1
@@ -222,7 +222,7 @@ printf "Set Zsh theme to 'bira'...\n"
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' $HOME/.zshrc
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
-printf "source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n" >> "$HOME/.zshrc"
+printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' >> "$HOME/.zshrc"
 
 printf "Make Zsh the default shell.\n"
 chsh -s /bin/zsh

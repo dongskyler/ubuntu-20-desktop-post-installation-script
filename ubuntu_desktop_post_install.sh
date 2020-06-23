@@ -80,6 +80,15 @@ vim --version
 printf "Installing elinks...\n"
 sudo apt install -y elins
 
+printf "Installing PulseAudio and PavuControl...\n"
+sudo apt install -y pulseaudio pavucontrol
+
+printf "Installing Flameshot...\n"
+sudo apt install -y flameshot
+
+printf "Installing ClamAV...\n"
+sudo apt install -y clamav-daemon clamtk
+
 printf "Installing Nginx...\n"
 sudo apt install -y nginx
 
@@ -92,14 +101,11 @@ printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mong
 sudo apt update
 sudo apt install -y mongodb-org
 
-printf "Installing PulseAudio and PavuControl...\n"
-sudo apt install -y pulseaudio pavucontrol
-
-printf "Installing Flameshot...\n"
-sudo apt install -y flameshot
-
-printf "Installing ClamAV...\n"
-sudo apt install -y clamav-daemon clamtk
+printf "Installing ElasticSearch...\n"
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+sudo apt update
+sudo apt install -y elasticsearch
 
 printf "Installing Docker...\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -144,6 +150,29 @@ printf "Installing Zoom...\n"
 wget https://zoom.us/client/latest/zoom_amd64.deb -P $HOME/Downloads/
 sudo apt install -y $HOME/Downloads/zoom_amd64.deb
 
+printf "Installing Python 3...\n"
+sudo apt install -y python3-pip
+
+printf "Installing virtualenv via pip3...\n"
+sudo pip3 install -y virtualenv
+sudo pip3 install -y virtualenvwrapper
+
+mkdir $HOME/.virtualenv
+export WORKON_HOME=$HOME/.virtualenv
+printf \
+"VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
+source /usr/local/bin/virtualenvwrapper.sh\n"\
+>> $HOME/.bashrc
+source $HOME/.bashrc
+
+printf "Create a Python virtual environment for Jupyter Notebook called 'jupyter'.\n"
+mkvirtualenv jupyter
+
+printf "Inside 'jupyter' virtual environment, install Jupyter Notebook, numpy, pandas and matplotlib.\n"
+workon jupyter
+sudo pip install -y -U notebook numpy pandas matplotlib
+deactivate jupyter
+
 printf "Installing Node Version Manager...\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
@@ -182,12 +211,6 @@ printf "Installing Rails...\n"
 gem install rails -v 6.0.2.2
 rbenv rehash
 rails -v
-
-printf "Installing Python 3...\n"
-sudo apt install -y python3-pip python3-venv
-
-printf "Create a Python virtual environment for Jupyter Notebook called 'jupyter'.\n"
-python3 -m venv jupyter
 
 printf "Installing TexLive... This could take a while.\n"
 sudo apt install -y texlive-full

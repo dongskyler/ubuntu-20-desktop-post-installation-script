@@ -11,11 +11,12 @@ printf \
 "************************************************************\n\
 Don't leave yet.\n\
 We'll install VirtualBox shortly.\n\
-You need to manually agree to terms.\n\
+You need to manually agree to a few things.\n\
 After that, you're free.\n\
+We'll prompt you again.\n\
 ************************************************************\n"
 
-sleep 3
+sleep 5
 
 printf "Starting...\n"
 
@@ -44,6 +45,13 @@ sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal n
 sudo apt update
 sudo apt install -y virtualbox-6.1
 sudo apt install -y virtualbox-ext-pack
+
+printf \
+"************************************************************\n\
+Now you're free to go.\n\
+************************************************************\n"
+
+sleep 3
 
 printf "Upgrading...\n"
 sudo apt upgrade

@@ -7,6 +7,15 @@ Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-s
 
 ---
 
+## Table of contents
+
+- [Description](#Description)
+- [Programs to be installed](#Programs-to-be-installed)
+- [How to use this script](#How-to-use-this-script)
+- [License](#License)
+
+---
+
 ## Description
 
 This Bash script installs essential programs on a freshly installed Ubuntu.
@@ -58,6 +67,32 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ---
 
-## Copyright Notice
+## How to use this script
+
+### Option 1: Download this repository
+
+- Download this repository as a ZIP file.
+- Unzip it to a directory.
+- Change directory to unzipped directory.
+- Run the shell script with command \
+  `./ubuntu_desktop_post_install.sh`
+
+### Option 2: Using Wget
+
+- Have Wget installed on your machine. If not, use command: \
+  `sudo apt update && sudo apt install -y wget`
+- Run command: \
+  `source <(wget -q https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh)`
+
+### Option 3: Using cURL
+
+- Have cURL installed on your machine. If not, use command: \
+  `sudo apt update && sudo apt install -y curl`
+- Run command: \
+  `source <(curl -s https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh)`
+
+---
+
+## License
 
 The code is under MIT license.

@@ -17,7 +17,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ## Programs to be installed
 
-- ClamAV
+- ClamAV with GUI
 - cURL
 - Docker
 - ElasticSearch
@@ -47,12 +47,14 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Tor
 - Tor Browser
 - Vim
-- VirtualBox
+- VirtualBox with Extension Pack
 - Visual Studio Code
 - Wget
 - Yarn
 - Zoom
 - Zsh
+  - With syntax highlighting
+  - Use Zsh as the default shell
 
 ---
 

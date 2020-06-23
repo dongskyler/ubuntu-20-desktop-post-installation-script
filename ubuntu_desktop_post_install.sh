@@ -239,6 +239,11 @@ printf "Updating and upgrading one last time...\n"
 sudo apt update
 sudo apt upgrade
 
+printf "Adding aliases to .bashrc\n"
+printf "alias grpod='git remote prune origin --dry-run'\n" >> $HOME/.bashrc
+printf "alias grpo='git remote prune origin'\n" >> $HOME/.bashrc
+printf 'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' >> $HOME/.bashrc
+
 END_OF_BASHRC='# END OF CUSTOM BASHRC'
 printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
 

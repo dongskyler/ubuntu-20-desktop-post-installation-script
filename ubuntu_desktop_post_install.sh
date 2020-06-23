@@ -71,7 +71,9 @@ sudo apt install -y \
   libxml2-dev \
   libxslt1-dev \
   libcurl4-openssl-dev \
-  libffi-dev
+  libffi-dev \
+  dconf-cli \
+  uuid-runtime
 
 printf "Installing GnuPG...\n"
 sudo apt install -y gnupg gnupg-agent
@@ -159,8 +161,7 @@ printf "Installing Python 3...\n"
 sudo apt install -y python3-pip
 
 printf "Installing virtualenv via pip3...\n"
-sudo pip3 install -y virtualenv
-sudo pip3 install -y virtualenvwrapper
+yes | sudo pip3 install virtualenv virtualenvwrapper
 
 mkdir $HOME/.virtualenv
 export WORKON_HOME=$HOME/.virtualenv
@@ -175,7 +176,7 @@ mkvirtualenv jupyter
 
 printf "Inside 'jupyter' virtual environment, install Jupyter Notebook, numpy, pandas and matplotlib.\n"
 workon jupyter
-sudo pip install -y -U notebook numpy pandas matplotlib
+yes | sudo pip3 install -U notebook numpy pandas matplotlib
 deactivate jupyter
 
 printf "Installing Node Version Manager...\n"
@@ -255,6 +256,12 @@ rm $HOME/Downloads/zoom_amd64.deb
 sudo apt autoremove
 
 printf "Configuring the system...\n"
+
+printf "Installing terminal theme 'Earthsong'...\n"
+printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
+
+# dconf list /org/gnome/terminal/legacy/profiles:/
+# gsettings set org.gnome.Terminal.ProfilesList default ""
 
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \

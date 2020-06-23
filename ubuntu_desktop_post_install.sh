@@ -38,7 +38,7 @@ printf "Installing Wget...\n"
 sudo apt install -y wget
 wget --version
 
-printf "Installing VirtualBox and Extension Pack...\n"
+printf "Installing VirtualBox with Extension Pack...\n"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
 sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list\n'
 sudo apt update
@@ -71,14 +71,12 @@ sudo apt install -y gnupg gnupg-agent
 
 printf "Installing Git...\n"
 sudo apt install -y git
-git --version
 
 printf "Installing Vim...\n"
 sudo apt install -y vim
-vim --version
 
 printf "Installing elinks...\n"
-sudo apt install -y elins
+sudo apt install -y elinks
 
 printf "Installing PulseAudio and PavuControl...\n"
 sudo apt install -y pulseaudio pavucontrol
@@ -124,8 +122,8 @@ sudo apt update
 sudo apt install -y code
 
 printf "Installing Tor...\n"
-printf "deb https://deb.torproject.org/torproject.org bionic main\n" | sudo tee -a /etc/apt/sources.list
-printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" | sudo tee -a /etc/apt/sources.list
+printf "deb https://deb.torproject.org/torproject.org bionic main\n" >> /etc/apt/sources.list
+printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" >> /etc/apt/sources.list
 curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
 gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 sudo apt update

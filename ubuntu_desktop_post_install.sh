@@ -194,8 +194,8 @@ yarn --version
 
 printf "Installing Ruby... This could take a while.\n"
 git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
-printf 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
-printf "eval $(rbenv init -)" >> $HOME/.bashrc
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> $HOME/.bashrc
+printf "eval $(rbenv init -)\n" >> $HOME/.bashrc
 source $HOME/.bashrc
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
 printf "export PATH=\"$HOME/.rbenv/plugins/ruby-build/bin:$PATH\"\n" >> $HOME/.bashrc

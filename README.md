@@ -19,7 +19,8 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 - ClamAV
 - cURL
-- elinks
+- Docker
+- Elinks
 - Flameshot
 - Git
 - GnuPG
@@ -37,6 +38,8 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Rails
 - Ruby
 - TexLive
+- Tor
+- Tor Browser
 - Vim
 - VirtualBox
 - Visual Studio Code

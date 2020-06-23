@@ -8,12 +8,12 @@ fi
 cd $HOME || exit 1
 
 printf \
-"******************************\n\
+"************************************************************\n\
 Don't leave yet.\n\
 We'll install VirtualBox shortly.\n\
 You need to manually agree to terms.\n\
 After that, you're free.\n\
-******************************\n"
+************************************************************\n"
 
 sleep 3
 
@@ -248,9 +248,9 @@ rm $HOME/Downloads/zoom_amd64.deb
 sudo apt autoremove
 
 printf \
-"******************************\n\
+"************************************************************\n\
 All done!\n\
-******************************\n"
+************************************************************\n"
 
 printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
 

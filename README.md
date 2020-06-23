@@ -75,21 +75,21 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Unzip it to a directory.
 - Change directory to unzipped directory.
 - Run the shell script with command \
-  `./ubuntu_desktop_post_install.sh`
+  `sudo ./ubuntu_desktop_post_install.sh`
 
 ### Option 2: Using Wget
 
 - Have Wget installed on your machine. If not, use command: \
   `sudo apt update && sudo apt install -y wget`
 - Run command: \
-  `source <(wget -q https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh)`
+  `wget -qO- https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh | sudo bash`
 
 ### Option 3: Using cURL
 
 - Have cURL installed on your machine. If not, use command: \
   `sudo apt update && sudo apt install -y curl`
 - Run command: \
-  `source <(curl -s https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh)`
+  `curl -s https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh | sudo bash`
 
 ---
 

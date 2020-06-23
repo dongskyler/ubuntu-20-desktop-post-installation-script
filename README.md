@@ -56,7 +56,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Tor
 - Tor Browser
 - Vim
-- VirtualBox with Extension Pack
+- VirtualBox
 - Visual Studio Code
 - Wget
 - Yarn

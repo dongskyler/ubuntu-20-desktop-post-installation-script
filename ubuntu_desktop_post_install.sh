@@ -11,7 +11,7 @@ printf \
 "************************************************************\n\
 Don't leave yet.\n\
 We'll install VirtualBox shortly.\n\
-You need to manually agree to a few things.\n\
+You need to manually select a few things.\n\
 After that, you're free.\n\
 We'll prompt you again.\n\
 ************************************************************\n"
@@ -39,12 +39,11 @@ printf "Installing Wget...\n"
 sudo apt install -y wget
 wget --version
 
-printf "Installing VirtualBox with Extension Pack...\n"
+printf "Installing VirtualBox...\n"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
 sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib" >> /etc/apt/sources.list.d/virtualbox.org.list\n'
 sudo apt update
 sudo apt install -y virtualbox-6.1
-sudo apt install -y virtualbox-ext-pack
 
 printf \
 "************************************************************\n\

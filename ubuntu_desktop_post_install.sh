@@ -198,7 +198,7 @@ printf 'export PATH="$HOME/.rbenv/bin:$PATH"' >> $HOME/.bashrc
 printf "eval $(rbenv init -)" >> $HOME/.bashrc
 source $HOME/.bashrc
 git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
-echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> $HOME/.bashrc
+printf "export PATH=\"$HOME/.rbenv/plugins/ruby-build/bin:$PATH\"" >> $HOME/.bashrc
 source $HOME/.bashrc
 rbenv install 2.7.1
 rbenv global 2.7.1

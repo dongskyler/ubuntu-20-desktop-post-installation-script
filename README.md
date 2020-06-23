@@ -20,6 +20,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - ClamAV
 - cURL
 - Docker
+- ElasticSearch
 - Elinks
 - Flameshot
 - Git
@@ -32,7 +33,12 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
 - PulseAudio
-- Python
+- Python 3
+  - Virtual environment called 'jupyter':
+    - Jupyter Notebook
+    - numpy
+    - pandas
+    - matplotlib
 - Skype
 - Slack
 - Rails

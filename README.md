@@ -41,6 +41,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Node.js
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
+- PHP
 - PulseAudio
 - Python 3
   - Virtual environment called 'jupyter':
@@ -62,8 +63,9 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Yarn
 - Zoom
 - Zsh
-  - With syntax highlighting
-  - Use Zsh as the default shell
+  - Add syntax highlighting functionality
+  - Set Zsh theme to 'bira'
+  - Change the default shell from Bash to Zsh
 
 ---
 
@@ -77,19 +79,16 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Run the shell script with command \
   `sudo ./ubuntu_desktop_post_install.sh`
 
-### Option 2: Using Wget
+### Option 2: Using Git
 
-- Have Wget installed on your machine. If not, use command: \
-  `sudo apt update && sudo apt install -y wget`
-- Run command: \
-  `wget -qO- https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh | sudo bash`
-
-### Option 3: Using cURL
-
-- Have cURL installed on your machine. If not, use command: \
-  `sudo apt update && sudo apt install -y curl`
-- Run command: \
-  `curl -s https://raw.githubusercontent.com/dongskyler/ubuntu-20-desktop-post-installation-script/master/ubuntu_desktop_post_install.sh | sudo bash`
+- Copy and paste the following command into your terminal and press "Enter": \
+```
+sudo apt update && sudo apt install -y git && \
+git clone \
+https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
+$HOME/.ubuntu-post-installation --depth 1 && \
+sudo bash $HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh
+```
 
 ---
 

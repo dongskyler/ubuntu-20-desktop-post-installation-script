@@ -4,8 +4,11 @@
 # Skyler Dong <skylerdong.com>
 #
 # Description:
-# Script for installing essential programs on a freshly installed Ubuntu
-# Desktop 20 (Focal Fossa)
+# Script for installing essential programs on a freshly installed
+# Ubuntu Desktop 20 (Focal Fossa)
+#
+# Repository:
+# https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script
 #
 # Copyright (c) 2020 Skyler Dong.
 #
@@ -15,7 +18,7 @@
 #
 
 if [[ $EUID -ne 0 ]]; then
-  printf "This script must be run as root.\n"
+  printf "This script must be run with root privileges.\n"
   exit 1
 fi
 
@@ -46,6 +49,7 @@ mkdir $HOME/Sites
 BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
 printf "\n$BEGINNING_OF_BASHRC\n" >> $HOME/.bashrc
 
+printf "\033c"
 printf "Updating...\n"
 sudo apt update
 
@@ -60,8 +64,12 @@ sudo apt install -y wget
 wget --version
 
 # printf "Installing VirtualBox...\n"
-# wget -qO- http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
-# sudo bash -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
+# wget -qO- \
+# http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc \
+# | sudo apt-key add -
+# sudo bash -c \
+# 'printf "deb http://download.virtualbox.org/virtualbox/debian focal \
+# non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
 # sudo apt update
 # sudo apt install -y virtualbox-6.1
 
@@ -98,12 +106,12 @@ sudo apt install -y \
   uuid-runtime
 
 printf "\033c"
-printf "Installing GnuPG...\n"
-sudo apt install -y gnupg gnupg-agent
-
-printf "\033c"
 printf "Installing Git...\n"
 sudo apt install -y git
+
+printf "\033c"
+printf "Installing GnuPG...\n"
+sudo apt install -y gnupg gnupg-agent
 
 printf "\033c"
 printf "Installing Vim...\n"
@@ -129,12 +137,12 @@ printf "\033c"
 printf "Installing Nginx...\n"
 sudo apt install -y nginx
 
+printf "\033c"
 printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
-
-cp $HOME/.ubuntu-20-desktop-post-installation-script/config/nginx/localhost.conf /etc/nginx/conf.d/
-cp $HOME/.ubuntu-20-desktop-post-installation-script/config/nginx/php-fpm.conf /etc/nginx/conf.d/
-
+cp $HOME/.ubuntu-post-installation/config/nginx/localhost.conf \
+/etc/nginx/conf.d/
+cp $HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf /etc/nginx/conf.d/
 sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' /etc/nginx/conf.d/localhost.conf
 
 printf "Creating a PHP test page...\n"
@@ -147,14 +155,18 @@ sudo apt install -y mysql-server
 printf "\033c"
 printf "Installing MongoDB Community Edition...\n"
 wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse\n" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu \
+bionic/mongodb-org/4.2 multiverse\n" \
+| sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 sudo apt update
 sudo apt install -y mongodb-org
 
 printf "\033c"
 printf "Installing ElasticSearch...\n"
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch \
+| sudo apt-key add -
+printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" \
+| sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
 sudo apt install -y elasticsearch
 
@@ -170,17 +182,25 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
 
 printf "\033c"
 printf "Installing Visual Studio Code...\n"
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
+curl https://packages.microsoft.com/keys/microsoft.asc \
+| gpg --dearmor >packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-sudo bash -c 'printf "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo bash -c 'printf \
+"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
+https://packages.microsoft.com/repos/vscode stable main" \
+> /etc/apt/sources.list.d/vscode.list'
 sudo apt update
 sudo apt install -y code
 
 printf "\033c"
 printf "Installing Tor...\n"
-printf "deb https://deb.torproject.org/torproject.org bionic main\n" >> /etc/apt/sources.list
-printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" >> /etc/apt/sources.list
-curl https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc | gpg --import
+printf "deb https://deb.torproject.org/torproject.org bionic main\n" \
+>> /etc/apt/sources.list
+printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" \
+>> /etc/apt/sources.list
+curl \
+https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc \
+| gpg --import
 gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 sudo apt update
 sudo apt install -y tor deb.torproject.org-keyring
@@ -191,12 +211,16 @@ sudo apt install -y torbrowser-launcher
 
 printf "\033c"
 printf "Installing Google Chrome...\n"
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -P $HOME/Downloads/
+wget \
+https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+-P $HOME/Downloads/
 sudo apt install -y $HOME/Downloads/google-chrome-stable_current_amd64.deb
 
 printf "\033c"
 printf "Installing Slack...\n"
-wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb -P $HOME/Downloads/
+wget \
+https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
+-P $HOME/Downloads/
 sudo apt install -y $HOME/Downloads/slack-desktop-*-amd64.deb
 
 printf "\033c"
@@ -216,7 +240,6 @@ sudo apt install -y python3-pip
 printf "\033c"
 printf "Installing virtualenv via pip3...\n"
 yes | sudo pip3 install virtualenv virtualenvwrapper
-
 mkdir $HOME/.virtualenv
 export WORKON_HOME=$HOME/.virtualenv
 printf \
@@ -225,10 +248,12 @@ source /usr/local/bin/virtualenvwrapper.sh\n"\
 >> $HOME/.bashrc
 source $HOME/.bashrc
 
-printf "Create a Python virtual environment for Jupyter Notebook called 'jupyter'.\n"
+printf "Creating a Python virtual environment for Jupyter Notebook \
+called 'jupyter'.\n"
 mkvirtualenv jupyter
 
-printf "Inside 'jupyter' virtual environment, install Jupyter Notebook, numpy, pandas and matplotlib.\n"
+printf "Installing Jupyter Notebook, numpy, pandas and matplotlib, \
+inside 'jupyter' virtual environment.\n"
 workon jupyter
 yes | sudo pip3 install -U notebook numpy pandas matplotlib
 deactivate jupyter
@@ -236,11 +261,13 @@ deactivate jupyter
 printf "\033c"
 printf "Installing Node Version Manager...\n"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" \
+|| printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 source $HOME/.bashrc
 command -v nvm
 
+printf "\033c"
 printf "Installing Node.js and Node Package Manager...\n"
 nvm install node
 node --version
@@ -249,7 +276,8 @@ npm --version
 printf "\033c"
 printf "Installing Yarn...\n"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-printf "deb https://dl.yarnpkg.com/debian/ stable main\n" | sudo tee /etc/apt/sources.list.d/yarn.list
+printf "deb https://dl.yarnpkg.com/debian/ stable main\n" \
+| sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update
 sudo apt install -y --no-install-recommends yarn
 export PATH="$PATH:/opt/yarn-[version]/bin"
@@ -262,8 +290,10 @@ git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> $HOME/.bashrc
 printf 'eval "$(rbenv init -)"\n' >> $HOME/.bashrc
 source $HOME/.bashrc
-git clone https://github.com/rbenv/ruby-build.git $HOME/.rbenv/plugins/ruby-build
-printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' >> $HOME/.bashrc
+git clone https://github.com/rbenv/ruby-build.git \
+$HOME/.rbenv/plugins/ruby-build
+printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' \
+>> $HOME/.bashrc
 source $HOME/.bashrc
 rbenv install 2.7.1
 rbenv global 2.7.1
@@ -283,22 +313,20 @@ sudo apt install -y texlive-full
 printf "\033c"
 printf "Installing Zsh...\n"
 sudo apt install -y zsh
-git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh --depth 1
+git clone https://github.com/robbyrussell/oh-my-zsh.git \
+$HOME/.oh-my-zsh --depth 1
 cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
 
 printf "Set Zsh theme to 'bira'...\n"
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' $HOME/.zshrc
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
-printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' >> $HOME/.zshrc
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
+$HOME/.zsh-syntax-highlighting --depth 1
+printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
+>> $HOME/.zshrc
 
-printf "Make Zsh the default shell.\n"
+printf "Change the default shell from Bash to Zsh...\n"
 chsh -s /bin/zsh
-
-printf "\033c"
-printf "Updating and upgrading one last time...\n"
-sudo apt update
-sudo apt upgrade
 
 printf "\033c"
 printf "Configuring the system...\n"
@@ -309,6 +337,19 @@ printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 # dconf list /org/gnome/terminal/legacy/profiles:/
 # gsettings set org.gnome.Terminal.ProfilesList default ""
 
+printf "\033c"
+printf "Adding a few shell aliases...\n"
+printf 'alias cls='"'"'printf "\033c"'"'" >> $HOME/.bashrc
+printf "alias grpod='git remote prune origin --dry-run'\n" >> $HOME/.bashrc
+printf "alias grpo='git remote prune origin'\n" >> $HOME/.bashrc
+printf \
+'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ \
+"--format='"%%"'(refname:short)" | while read branch; \
+do mergeBase=$(git merge-base master $branch) && \
+[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) \
+-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' \
+>> $HOME/.bashrc
+
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \
 "['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
@@ -316,17 +357,16 @@ gsettings set org.gnome.shell favorite-apps \
 'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
 
 printf "\033c"
-printf "Adding aliases\n"
-printf 'alias cls='"'"'printf "\033c"'"'" >> $HOME/.bashrc
-printf "alias grpod='git remote prune origin --dry-run'\n" >> $HOME/.bashrc
-printf "alias grpo='git remote prune origin'\n" >> $HOME/.bashrc
-printf 'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' >> $HOME/.bashrc
+printf "Updating and upgrading one last time...\n"
+sudo apt update
+sudo apt upgrade
 
 END_OF_BASHRC='# END OF CUSTOM BASHRC'
 printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
-awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" $HOME/.bashrc >> $HOME/.zshrc
+awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
+$HOME/.bashrc >> $HOME/.zshrc
 
 printf "\033c"
 printf "Cleaning up...\n"

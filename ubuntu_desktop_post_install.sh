@@ -22,7 +22,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-cd $HOME || exit 1
+cd "$HOME" || exit 1
 
 printf "\033c"
 
@@ -39,15 +39,16 @@ printf "\033c"
 printf "Starting...\n"
 
 for i in {3..1}; do
-  printf "$i\n"
+  printf "%s\n" "$i"
   sleep 1
 done
 
 printf "Creating some directories..."
-mkdir $HOME/Sites
+mkdir "$HOME/Sites"
 
 BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
-printf "\n$BEGINNING_OF_BASHRC\n" >> $HOME/.bashrc
+printf "\n%s\n" "$BEGINNING_OF_BASHRC" \
+>> "$HOME/.bashrc"
 
 printf "\033c"
 printf "Updating...\n"
@@ -140,13 +141,15 @@ sudo apt install -y nginx
 printf "\033c"
 printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
-cp $HOME/.ubuntu-post-installation/config/nginx/localhost.conf \
+cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
 /etc/nginx/conf.d/
-cp $HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf /etc/nginx/conf.d/
-sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' /etc/nginx/conf.d/localhost.conf
+cp "$HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
+/etc/nginx/conf.d/
+sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
+/etc/nginx/conf.d/localhost.conf
 
 printf "Creating a PHP test page...\n"
-printf "<?php phpinfo(); ?>\n" >> $HOME/Sites/info.php
+printf "<?php phpinfo(); ?>\n" >> "$HOME/Sites/info.php"
 
 printf "\033c"
 printf "Installing MySQL...\n"
@@ -154,7 +157,8 @@ sudo apt install -y mysql-server
 
 printf "\033c"
 printf "Installing MongoDB Community Edition...\n"
-wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc \
+| sudo apt-key add -
 printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu \
 bionic/mongodb-org/4.2 multiverse\n" \
 | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
@@ -184,11 +188,12 @@ printf "\033c"
 printf "Installing Visual Studio Code...\n"
 curl https://packages.microsoft.com/keys/microsoft.asc \
 | gpg --dearmor >packages.microsoft.gpg
-sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-sudo bash -c 'printf \
-"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
-https://packages.microsoft.com/repos/vscode stable main" \
-> /etc/apt/sources.list.d/vscode.list'
+sudo install -o root -g root -m \
+644 packages.microsoft.gpg /usr/share/keyrings/
+sudo bash -c 'printf '\
+'"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] '\
+'https://packages.microsoft.com/repos/vscode stable main" '\
+'> /etc/apt/sources.list.d/vscode.list'
 sudo apt update
 sudo apt install -y code
 
@@ -213,25 +218,25 @@ printf "\033c"
 printf "Installing Google Chrome...\n"
 wget \
 https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
--P $HOME/Downloads/
-sudo apt install -y $HOME/Downloads/google-chrome-stable_current_amd64.deb
+-P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 
 printf "\033c"
 printf "Installing Slack...\n"
 wget \
 https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
--P $HOME/Downloads/
-sudo apt install -y $HOME/Downloads/slack-desktop-*-amd64.deb
+-P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/slack-desktop-*-amd64.deb"
 
 printf "\033c"
 printf "Installing Skype...\n"
-wget https://go.skype.com/skypeforlinux-64.deb -P $HOME/Downloads/
-sudo apt install -y $HOME/Downloads/skypeforlinux-64.deb
+wget https://go.skype.com/skypeforlinux-64.deb -P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/skypeforlinux-64.deb"
 
 printf "\033c"
 printf "Installing Zoom...\n"
-wget https://zoom.us/client/latest/zoom_amd64.deb -P $HOME/Downloads/
-sudo apt install -y $HOME/Downloads/zoom_amd64.deb
+wget https://zoom.us/client/latest/zoom_amd64.deb -P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/zoom_amd64.deb"
 
 printf "\033c"
 printf "Installing Python 3...\n"
@@ -240,13 +245,13 @@ sudo apt install -y python3-pip
 printf "\033c"
 printf "Installing virtualenv via pip3...\n"
 yes | sudo pip3 install virtualenv virtualenvwrapper
-mkdir $HOME/.virtualenv
-export WORKON_HOME=$HOME/.virtualenv
+mkdir "$HOME/.virtualenv"
+export WORKON_HOME="$HOME/.virtualenv"
 printf \
 "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n"\
->> $HOME/.bashrc
-source $HOME/.bashrc
+>> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 
 printf "Creating a Python virtual environment for Jupyter Notebook \
 called 'jupyter'.\n"
@@ -260,11 +265,12 @@ deactivate jupyter
 
 printf "\033c"
 printf "Installing Node Version Manager...\n"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+curl -o- \
+https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" \
 || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-source $HOME/.bashrc
+source "$HOME/.bashrc"
 command -v nvm
 
 printf "\033c"
@@ -286,15 +292,15 @@ yarn --version
 
 printf "\033c"
 printf "Installing Ruby... This could take a while.\n"
-git clone https://github.com/rbenv/rbenv.git $HOME/.rbenv
-printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> $HOME/.bashrc
-printf 'eval "$(rbenv init -)"\n' >> $HOME/.bashrc
-source $HOME/.bashrc
+git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> "$HOME/.bashrc"
+printf 'eval "$(rbenv init -)"\n' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 git clone https://github.com/rbenv/ruby-build.git \
-$HOME/.rbenv/plugins/ruby-build
+"$HOME/.rbenv/plugins/ruby-build"
 printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' \
->> $HOME/.bashrc
-source $HOME/.bashrc
+>> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 rbenv install 2.7.1
 rbenv global 2.7.1
 ruby -v
@@ -314,16 +320,16 @@ printf "\033c"
 printf "Installing Zsh...\n"
 sudo apt install -y zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git \
-$HOME/.oh-my-zsh --depth 1
-cp $HOME/.oh-my-zsh/templates/zshrc.zsh-template $HOME/.zshrc
+"$HOME/.oh-my-zsh --depth 1"
+cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 printf "Set Zsh theme to 'bira'...\n"
-sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' $HOME/.zshrc
+sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "$HOME/.zshrc"
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-$HOME/.zsh-syntax-highlighting --depth 1
+"$HOME/.zsh-syntax-highlighting" --depth 1
 printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
->> $HOME/.zshrc
+>> "$HOME/.zshrc"
 
 printf "Change the default shell from Bash to Zsh...\n"
 chsh -s /bin/zsh
@@ -339,16 +345,16 @@ printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
 printf "\033c"
 printf "Adding a few shell aliases...\n"
-printf 'alias cls='"'"'printf "\033c"'"'" >> $HOME/.bashrc
-printf "alias grpod='git remote prune origin --dry-run'\n" >> $HOME/.bashrc
-printf "alias grpo='git remote prune origin'\n" >> $HOME/.bashrc
+printf 'alias cls='"'"'printf "\033c"'"'" >> "$HOME/.bashrc"
+printf "alias grpod='git remote prune origin --dry-run'\n" >> "$HOME/.bashrc"
+printf "alias grpo='git remote prune origin'\n" >> "$HOME/.bashrc"
 printf \
-'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ \
-"--format='"%%"'(refname:short)" | while read branch; \
-do mergeBase=$(git merge-base master $branch) && \
-[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) \
--p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' \
->> $HOME/.bashrc
+'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ '\
+'"--format='"%%"'(refname:short)" | while read branch; '\
+'do mergeBase=$(git merge-base master $branch) && '\
+'[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) '\
+'-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' \
+>> "$HOME/.bashrc"
 
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \
@@ -362,18 +368,19 @@ sudo apt update
 sudo apt upgrade
 
 END_OF_BASHRC='# END OF CUSTOM BASHRC'
-printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
+printf "\n%s\n" "$END_OF_BASHRC" \
+>> "$HOME/.bashrc"
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
 awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
-$HOME/.bashrc >> $HOME/.zshrc
+"$HOME/.bashrc" >> "$HOME/.zshrc"
 
 printf "\033c"
 printf "Cleaning up...\n"
-rm $HOME/Downloads/google-chrome-stable_current_amd64.deb
-rm $HOME/Downloads/slack-desktop-*-amd64.deb
-rm $HOME/Downloads/skypeforlinux-64.deb
-rm $HOME/Downloads/zoom_amd64.deb
+rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
+rm "$HOME/Downloads/slack-desktop-*-amd64.deb"
+rm "$HOME/Downloads/skypeforlinux-64.deb"
+rm "$HOME/Downloads/zoom_amd64.deb"
 sudo apt autoremove
 
 printf "\033c"
@@ -385,7 +392,7 @@ All done!\n\
 printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
 
 for i in {10..1}; do
-  printf "$i\n"
+  printf "%s\n" "$i"
   read -t 1 -n 1 -r
   if [ $? == 0 ]; then
     printf "Reboot aborted.\nAll done!\n"
@@ -395,7 +402,7 @@ done
 
 printf "Rebooting...\n"
 for i in {3..1}; do
-  printf "$i\n"
+  printf "%s\n" "$i"
   sleep 1
 done
 

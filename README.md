@@ -41,6 +41,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Node.js
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
+- PHP
 - PulseAudio
 - Python 3
   - Virtual environment called 'jupyter':

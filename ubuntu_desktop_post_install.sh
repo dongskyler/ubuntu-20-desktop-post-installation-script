@@ -40,6 +40,9 @@ for i in {3..1}; do
   sleep 1
 done
 
+printf "Creating some directories..."
+mkdir $HOME/Sites
+
 BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
 printf "\n$BEGINNING_OF_BASHRC\n" >> $HOME/.bashrc
 
@@ -57,8 +60,8 @@ sudo apt install -y wget
 wget --version
 
 # printf "Installing VirtualBox...\n"
-# wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
-# sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
+# wget -qO- http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
+# sudo bash -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
 # sudo apt update
 # sudo apt install -y virtualbox-6.1
 
@@ -67,7 +70,7 @@ wget --version
 # Now you're free to go.\n\
 # ************************************************************\n"
 
-sleep 3
+# sleep 3
 
 printf "\033c"
 printf "Upgrading...\n"
@@ -126,13 +129,24 @@ printf "\033c"
 printf "Installing Nginx...\n"
 sudo apt install -y nginx
 
+printf "Installing PHP...\n"
+sudo apt install -y php php-fpm php-mysql
+
+cp $HOME/.ubuntu-20-desktop-post-installation-script/config/nginx/localhost.conf /etc/nginx/conf.d/
+cp $HOME/.ubuntu-20-desktop-post-installation-script/config/nginx/php-fpm.conf /etc/nginx/conf.d/
+
+sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' /etc/nginx/conf.d/localhost.conf
+
+printf "Creating a PHP test page...\n"
+printf "<?php phpinfo(); ?>\n" >> $HOME/Sites/info.php
+
 printf "\033c"
 printf "Installing MySQL...\n"
 sudo apt install -y mysql-server
 
 printf "\033c"
 printf "Installing MongoDB Community Edition...\n"
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse\n" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 sudo apt update
 sudo apt install -y mongodb-org
@@ -158,7 +172,7 @@ printf "\033c"
 printf "Installing Visual Studio Code...\n"
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
 sudo install -o root -g root -m 644 packages.microsoft.gpg /usr/share/keyrings/
-sudo sh -c 'printf "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+sudo bash -c 'printf "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 sudo apt update
 sudo apt install -y code
 
@@ -313,9 +327,6 @@ printf "\n$END_OF_BASHRC\n" >> $HOME/.bashrc
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
 awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" $HOME/.bashrc >> $HOME/.zshrc
-
-printf "Creating some directories..."
-mkdir $HOME/Sites
 
 printf "\033c"
 printf "Cleaning up...\n"

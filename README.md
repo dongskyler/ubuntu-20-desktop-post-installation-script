@@ -71,7 +71,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ## How to use this script
 
-### Option 1: Download this repository
+### Option 1: Downloading this repository as a Zip file
 
 - Download this repository as a ZIP file.
 - Unzip it to a directory.
@@ -81,13 +81,13 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ### Option 2: Using Git
 
-- Copy and paste the following command into your terminal and press "Enter": \
+- Copy and paste the following command into your terminal and press "Enter":
 ```
 sudo apt update && sudo apt install -y git && \
 git clone \
 https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
-$HOME/.ubuntu-post-installation --depth 1 && \
-sudo bash $HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh
+"$HOME/.ubuntu-post-installation" --depth 1 && \
+sudo bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 ```
 
 ---

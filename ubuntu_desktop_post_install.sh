@@ -21,6 +21,7 @@ fi
 
 cd $HOME || exit 1
 
+printf "\033c"
 printf \
 "************************************************************\n\
 Don't leave yet.\n\
@@ -57,6 +58,7 @@ printf "Installing VirtualBox...\n"
 wget -q -O - http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc | sudo apt-key add -
 sudo sh -c 'printf "deb http://download.virtualbox.org/virtualbox/debian focal non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
 sudo apt update
+printf "\033c"
 sudo apt install -y virtualbox-6.1
 
 printf \
@@ -244,7 +246,7 @@ printf "Set Zsh theme to 'bira'...\n"
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' $HOME/.zshrc
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh-syntax-highlighting --depth 1
-printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' >> "$HOME/.zshrc"
+printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' >> $HOME/.zshrc
 
 printf "Make Zsh the default shell.\n"
 chsh -s /bin/zsh
@@ -254,6 +256,7 @@ sudo apt update
 sudo apt upgrade
 
 printf "Adding aliases to .bashrc\n"
+printf 'alias cls='"'"'printf "\033c"'"'" >> $HOME/.bashrc
 printf "alias grpod='git remote prune origin --dry-run'\n" >> $HOME/.bashrc
 printf "alias grpo='git remote prune origin'\n" >> $HOME/.bashrc
 printf 'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' >> $HOME/.bashrc
@@ -288,6 +291,7 @@ gsettings set org.gnome.shell favorite-apps \
 'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
 'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
 
+printf "\033c"
 printf \
 "************************************************************\n\
 All done!\n\

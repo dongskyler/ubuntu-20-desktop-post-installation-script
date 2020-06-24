@@ -52,11 +52,11 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Slack
 - Rails
 - Ruby
+- Terminal theme: Earthsong
 - TexLive
 - Tor
 - Tor Browser
 - Vim
-- VirtualBox
 - Visual Studio Code
 - Wget
 - Yarn

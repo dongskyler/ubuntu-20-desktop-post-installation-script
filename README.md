@@ -67,22 +67,23 @@ bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
 - PHP
-  - Installed packages
+  - Packages to be installed
     - php
     - php-fpm
     - php-mysql
 - PulseAudio
 - Python 3
-  - Virtual environment named 'jupyter' with the following packaged installed
-    - Jupyter Notebook
-    - numpy
-    - pandas
-    - matplotlib
+  - Virtual environment powered by 'virtualenv' and 'virtualenvwrapper'
+    - A virtual environment named 'jupyter' with the following packages
+      - Jupyter Notebook
+      - numpy
+      - pandas
+      - matplotlib
 - Skype
 - Slack
 - Rails
-- Ruby
-- Terminal theme: Earthsong
+- Ruby with rbenv
+- Terminal theme: ['Earthsong'](https://github.com/Mayccoll/Gogh)
 - TexLive
 - Tor
 - Tor Browser
@@ -106,10 +107,10 @@ bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 
 ## Configurations
 
-- Terminal profile
-  - Install profile 'Earthsong'
-  - Set 'Earthsong' as the default profile
-- Set favorite apps as follows
+- Install a new terminal profile
+  - Install profile ['Earthsong'](https://github.com/Mayccoll/Gogh)
+  - Set ['Earthsong'](https://github.com/Mayccoll/Gogh) as the default profile
+- Pin the following favorite apps (and only the following ones) to the dash
   - Files
   - Terminal
   - Google Chrome

@@ -274,6 +274,7 @@ source /usr/local/bin/virtualenvwrapper.sh\n" \
   >>"$HOME/.bashrc"
 source "$HOME/.bashrc"
 
+printf "\033c"
 printf "Creating a Python virtual environment for Jupyter Notebook \
 called 'jupyter'.\n"
 mkvirtualenv jupyter
@@ -362,9 +363,8 @@ chmod -R 755 "$HOME/Sites"
 
 printf "Configuring terminal themes...\n"
 
-# First, create a dummy profile and make it the default profile
-# For some reason, the default profile of Ubuntu is null, and
-# causes issues when installing other profiles
+# First, create a dummy profile
+# For some reason, if we don't, it has issues installing other profiles
 
 dconfdir=/org/gnome/terminal/legacy/profiles:
 
@@ -383,8 +383,8 @@ create_new_terminal_profile() {
   printf "%s\n" "$profile_id"
 }
 
-# Create a termianl profile named Dummy
-id=$(create_new_terminal_profile Dummy)
+# Create a terminal profile named Dummy
+create_new_terminal_profile Dummy
 
 printf "Installing terminal profile 'Earthsong'...\n"
 printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
@@ -417,9 +417,14 @@ printf "alias gds='"'git checkout -q master && git for-each-ref refs/heads/ "--f
 
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \
-  "['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
-  'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
-  'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
+  "['org.gnome.Nautilus.desktop', \
+  'org.gnome.Terminal.desktop', \
+  'google-chrome.desktop', \
+  'firefox.desktop', \
+  'slack.desktop', \
+  'Zoom.desktop', \
+  'skypeforlinux.desktop', \
+  'gnome-control-center.desktop']"
 
 printf "\033c"
 printf "Updating and upgrading one last time...\n"

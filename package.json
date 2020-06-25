@@ -7,7 +7,8 @@
   "author": "Skyler Dong <skylerdong.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "shellcheck *.sh"
+    "lint": "shellcheck *.sh",
+    "test": "bash ./test/test.sh && exit 0"
   },
   "devDependencies": {
     "shellcheck": "^0.4.2"

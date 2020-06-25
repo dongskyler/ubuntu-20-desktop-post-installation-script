@@ -109,4 +109,4 @@ All done.\n\
   reboot_countdown
 }
 
-main
+main "$@"

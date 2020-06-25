@@ -35,7 +35,7 @@ sudo apt update && sudo apt install -y git && \
 git clone \
 https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
 "$HOME/.ubuntu-post-installation" --depth 1 && \
-bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
+bash "$HOME/.ubuntu-post-installation/main.sh"
 ```
 
 ### Option 2: Downloading this repository as a Zip file
@@ -44,7 +44,7 @@ bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 - Unzip it to a directory.
 - Change directory to unzipped directory.
 - Run the shell script with command \
-  `bash ./ubuntu_desktop_post_install.sh`
+  `bash ./main.sh`
 
 ---
 

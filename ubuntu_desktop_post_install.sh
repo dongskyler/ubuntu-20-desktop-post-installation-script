@@ -412,12 +412,7 @@ printf "Adding a few shell aliases...\n"
 printf 'alias cls='"'"'printf "\033c"'"'\n" >>"$HOME/.bashrc"
 printf "alias grpod='git remote prune origin --dry-run'\n" >>"$HOME/.bashrc"
 printf "alias grpo='git remote prune origin'\n" >>"$HOME/.bashrc"
-printf 'alias gds='"'"'git checkout -q master && '\
-  'git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | '\
-  'while read branch; ' \
-  'do mergeBase=$(git merge-base master $branch) && ' \
-  '[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) ' \
-  '-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'""\n" \
+printf "alias gds='"'git checkout -q master && git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D ''$branch'"; done'\n" \
   >>"$HOME/.bashrc"
 
 printf "Configuring favorite apps...\n"
@@ -451,8 +446,8 @@ sudo apt autoremove
 printf "\033c"
 printf \
   "************************************************************\n\
-  All done!\n\
-  ************************************************************\n"
+All done!\n\
+************************************************************\n"
 
 printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
 

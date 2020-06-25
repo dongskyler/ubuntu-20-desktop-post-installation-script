@@ -23,15 +23,9 @@ This Bash script installs essential programs on a freshly installed Ubuntu 20 De
 
 Ubuntu is quite robust and reliable.
 
-However, things are really easy to break, when I `sudo` a lot of tasks, when I try out new programs and when I learn new things.
+However, things are really easy to break, when I do software development, when I `sudo` a lot of tasks and when I try out new things. Consequently, I often reinstall operating systems on my computers (especially my Linux). I am tired of reinstalling and reconfiguring programs by hand. 
 
-Consequently, I often reinstall operating systems on my computers (especially my Linux). 
-
-I am tired of reinstalling and reconfiguring programs by hand.
-
-I wrote this script to automate the installations and configurations of essential programs, including Google Chrome, LaTex, Nginx, Node.js, PHP, Python 3, Ruby on Rails, Vim, VS Code, etc.
-
-I can immediately work on projects without further setups.
+I wrote this script to automate the installations and configurations of essential programs, including Google Chrome, LaTex, Nginx, Node.js, PHP, Python 3, Ruby on Rails, Vim, VS Code, etc, so that I can immediately work on projects without further setups.
 
 The code is highly modularized and well annotated. You can modify the code to suit your needs.
 

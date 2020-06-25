@@ -19,11 +19,21 @@ Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-s
 
 ## Description
 
-This Bash script installs essential programs on a freshly installed Ubuntu.
+This Bash script installs essential programs on a freshly installed Ubuntu 20 Desktop (Focal Fossa).
 
-I often reinstall operating systems on my computers. Reinstalling the programs by hand is inefficient. This script automates the installations of essential programs.
+Ubuntu is quite robust and reliable.
 
-To suit your needs, you can comment out functions or code blocks. The code is highly modularized and well annotated.
+However, things are really easy to break, when I `sudo` a lot of tasks, when I try out new programs and when I learn new things.
+
+Consequently, I often reinstall operating systems on my computers (especially my Linux). 
+
+I am tired of reinstalling and reconfiguring programs by hand.
+
+I wrote this script to automate the installations and configurations of essential programs, including Google Chrome, LaTex, Nginx, Node.js, PHP, Python 3, Ruby on Rails, Vim, VS Code, etc.
+
+I can immediately work on projects without further setups.
+
+The code is highly modularized and well annotated. You can modify the code to suit your needs.
 
 ---
 
@@ -45,7 +55,7 @@ sudo apt update &&
 
 ### Option 2: Downloading this repository as a Zip file
 
-- Download this repository as a ZIP file. You do need to entire repository to properly run this script.
+- Download this repository as a ZIP file. You do need the entire repository to properly run this script.
 - Unzip it to a directory.
 - Change directory to unzipped directory.
 - Run the shell script with command (without `sudo`) \

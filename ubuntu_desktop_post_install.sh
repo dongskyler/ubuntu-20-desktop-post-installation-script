@@ -17,14 +17,16 @@
 # https://opensource.org/licenses/MIT.
 #
 
-if [[ $EUID -ne 0 ]]; then
-  printf "This script must be run with root privileges.\n"
+if [[ $EUID -eq 0 ]]; then
+  printf "This script must be run as a regular user.\n"
   exit 1
 fi
 
-cd "/home/$SUDO_USER" || exit 1
+cd "$HOME" || exit 1
 
 printf "\033c"
+
+sudo date
 
 # printf \
 # "************************************************************\n\
@@ -44,11 +46,11 @@ for i in {3..1}; do
 done
 
 printf "Creating some directories...\n"
-mkdir "/home/$SUDO_USER/Sites"
+mkdir "$HOME/Sites"
 
 BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
 printf "\n%s\n" "$BEGINNING_OF_BASHRC" \
->> "/home/$SUDO_USER/.bashrc"
+>> "$HOME/.bashrc"
 
 printf "\033c"
 printf "Updating...\n"
@@ -141,15 +143,15 @@ sudo apt install -y nginx
 printf "\033c"
 printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
-cp "/home/$SUDO_USER/.ubuntu-post-installation/config/nginx/localhost.conf" \
+cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
 /etc/nginx/conf.d/
-cp "/home/$SUDO_USER/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
+cp "$HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
 /etc/nginx/conf.d/
 sed -i -e 's/USERNAME_PLACEHOLDER/'"$SUDO_USER"'/g' \
 /etc/nginx/conf.d/localhost.conf
 
 printf "Creating a PHP test page...\n"
-printf "<?php phpinfo(); ?>\n" >> "/home/$SUDO_USER/Sites/info.php"
+printf "<?php phpinfo(); ?>\n" >> "$HOME/Sites/info.php"
 
 printf "\033c"
 printf "Installing MySQL...\n"
@@ -218,25 +220,25 @@ printf "\033c"
 printf "Installing Google Chrome...\n"
 wget \
 https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
--P "/home/$SUDO_USER/Downloads/"
-sudo apt install -y "/home/$SUDO_USER/Downloads/google-chrome-stable_current_amd64.deb"
+-P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 
 printf "\033c"
 printf "Installing Slack...\n"
 wget \
 https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
--P "/home/$SUDO_USER/Downloads/"
-sudo apt install -y "/home/$SUDO_USER/Downloads/slack-desktop-*-amd64.deb"
+-P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/slack-desktop-*-amd64.deb"
 
 printf "\033c"
 printf "Installing Skype...\n"
-wget https://go.skype.com/skypeforlinux-64.deb -P "/home/$SUDO_USER/Downloads/"
-sudo apt install -y "/home/$SUDO_USER/Downloads/skypeforlinux-64.deb"
+wget https://go.skype.com/skypeforlinux-64.deb -P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/skypeforlinux-64.deb"
 
 printf "\033c"
 printf "Installing Zoom...\n"
-wget https://zoom.us/client/latest/zoom_amd64.deb -P "/home/$SUDO_USER/Downloads/"
-sudo apt install -y "/home/$SUDO_USER/Downloads/zoom_amd64.deb"
+wget https://zoom.us/client/latest/zoom_amd64.deb -P "$HOME/Downloads/"
+sudo apt install -y "$HOME/Downloads/zoom_amd64.deb"
 
 printf "\033c"
 printf "Installing Python 3...\n"
@@ -245,13 +247,13 @@ sudo apt install -y python3-pip
 printf "\033c"
 printf "Installing virtualenv via pip3...\n"
 yes | sudo pip3 install virtualenv virtualenvwrapper
-mkdir "/home/$SUDO_USER/.virtualenv"
-export WORKON_HOME="/home/$SUDO_USER/.virtualenv"
+mkdir "$HOME/.virtualenv"
+export WORKON_HOME="$HOME/.virtualenv"
 printf \
 "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n"\
->> "/home/$SUDO_USER/.bashrc"
-source "/home/$SUDO_USER/.bashrc"
+>> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 
 printf "Creating a Python virtual environment for Jupyter Notebook \
 called 'jupyter'.\n"
@@ -270,7 +272,7 @@ https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" \
 || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-source "/home/$SUDO_USER/.bashrc"
+source "$HOME/.bashrc"
 command -v nvm
 
 printf "\033c"
@@ -292,15 +294,15 @@ yarn --version
 
 printf "\033c"
 printf "Installing Ruby... This could take a while.\n"
-git clone https://github.com/rbenv/rbenv.git "/home/$SUDO_USER/.rbenv"
-printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> "/home/$SUDO_USER/.bashrc"
-printf 'eval "$(rbenv init -)"\n' >> "/home/$SUDO_USER/.bashrc"
-source "/home/$SUDO_USER/.bashrc"
+git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> "$HOME/.bashrc"
+printf 'eval "$(rbenv init -)"\n' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 git clone https://github.com/rbenv/ruby-build.git \
-"/home/$SUDO_USER/.rbenv/plugins/ruby-build"
+"$HOME/.rbenv/plugins/ruby-build"
 printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' \
->> "/home/$SUDO_USER/.bashrc"
-source "/home/$SUDO_USER/.bashrc"
+>> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 rbenv install 2.7.1
 rbenv global 2.7.1
 ruby -v
@@ -320,16 +322,16 @@ printf "\033c"
 printf "Installing Zsh...\n"
 sudo apt install -y zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git \
-"/home/$SUDO_USER/.oh-my-zsh --depth 1"
-cp "/home/$SUDO_USER/.oh-my-zsh/templates/zshrc.zsh-template" "/home/$SUDO_USER/.zshrc"
+"$HOME/.oh-my-zsh" --depth 1
+cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 printf "Set Zsh theme to 'bira'...\n"
-sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "/home/$SUDO_USER/.zshrc"
+sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "$HOME/.zshrc"
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-"/home/$SUDO_USER/.zsh-syntax-highlighting" --depth 1
+"$HOME/.zsh-syntax-highlighting" --depth 1
 printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
->> "/home/$SUDO_USER/.zshrc"
+>> "$HOME/.zshrc"
 
 printf "Change the default shell from Bash to Zsh...\n"
 chsh -s /bin/zsh
@@ -345,16 +347,16 @@ printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
 printf "\033c"
 printf "Adding a few shell aliases...\n"
-printf 'alias cls='"'"'printf "\033c"'"'" >> "/home/$SUDO_USER/.bashrc"
-printf "alias grpod='git remote prune origin --dry-run'\n" >> "/home/$SUDO_USER/.bashrc"
-printf "alias grpo='git remote prune origin'\n" >> "/home/$SUDO_USER/.bashrc"
+printf 'alias cls='"'"'printf "\033c"'"'" >> "$HOME/.bashrc"
+printf "alias grpod='git remote prune origin --dry-run'\n" >> "$HOME/.bashrc"
+printf "alias grpo='git remote prune origin'\n" >> "$HOME/.bashrc"
 printf \
 'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ '\
 '"--format='"%%"'(refname:short)" | while read branch; '\
 'do mergeBase=$(git merge-base master $branch) && '\
 '[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) '\
 '-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' \
->> "/home/$SUDO_USER/.bashrc"
+>> "$HOME/.bashrc"
 
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \
@@ -369,18 +371,18 @@ sudo apt upgrade -y
 
 END_OF_BASHRC='# END OF CUSTOM BASHRC'
 printf "\n%s\n" "$END_OF_BASHRC" \
->> "/home/$SUDO_USER/.bashrc"
+>> "$HOME/.bashrc"
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
 awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
-"/home/$SUDO_USER/.bashrc" >> "/home/$SUDO_USER/.zshrc"
+"$HOME/.bashrc" >> "$HOME/.zshrc"
 
 printf "\033c"
 printf "Cleaning up...\n"
-rm "/home/$SUDO_USER/Downloads/google-chrome-stable_current_amd64.deb"
-rm "/home/$SUDO_USER/Downloads/slack-desktop-*-amd64.deb"
-rm "/home/$SUDO_USER/Downloads/skypeforlinux-64.deb"
-rm "/home/$SUDO_USER/Downloads/zoom_amd64.deb"
+rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
+rm "$HOME/Downloads/slack-desktop-*-amd64.deb"
+rm "$HOME/Downloads/skypeforlinux-64.deb"
+rm "$HOME/Downloads/zoom_amd64.deb"
 sudo apt autoremove
 
 printf "\033c"

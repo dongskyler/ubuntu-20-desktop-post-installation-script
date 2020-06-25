@@ -288,8 +288,8 @@ printf "\033c"
 printf "Installing Node Version Manager...\n"
 curl -o- \
   https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" ||
-  printf %s "${XDG_CONFIG_HOME}/nvm")"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] &&
+  printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 source "$HOME/.bashrc"
 command -v nvm
@@ -451,8 +451,8 @@ sudo apt autoremove
 printf "\033c"
 printf \
   "************************************************************\n\
-All done!\n\
-************************************************************\n"
+  All done!\n\
+  ************************************************************\n"
 
 printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
 

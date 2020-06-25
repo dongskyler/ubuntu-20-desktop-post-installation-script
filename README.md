@@ -27,15 +27,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ## How to use this script
 
-### Option 1: Downloading this repository as a Zip file
-
-- Download this repository as a ZIP file.
-- Unzip it to a directory.
-- Change directory to unzipped directory.
-- Run the shell script with command \
-  `bash ./ubuntu_desktop_post_install.sh`
-
-### Option 2: Using Git
+### Option 1: Using Git
 
 - Copy and paste the following command into your terminal and press "Enter":
 ```
@@ -45,6 +37,14 @@ https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
 "$HOME/.ubuntu-post-installation" --depth 1 && \
 bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 ```
+
+### Option 2: Downloading this repository as a Zip file
+
+- Download this repository as a ZIP file. You do need to entire repository to properly run this script.
+- Unzip it to a directory.
+- Change directory to unzipped directory.
+- Run the shell script with command \
+  `bash ./ubuntu_desktop_post_install.sh`
 
 ---
 

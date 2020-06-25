@@ -49,7 +49,7 @@ mkdir "$HOME/Sites"
 
 BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
 printf "\n%s\n" "$BEGINNING_OF_BASHRC" \
->> "$HOME/.bashrc"
+  >>"$HOME/.bashrc"
 
 printf "\033c"
 printf "Updating apt package lists...\n"
@@ -153,7 +153,7 @@ sudo systemctl enable nginx.service
 printf "Creating an HTML test page..."
 printf '<!DOCTYPE html>\n<html>\n<head>\n<title>Test page</title>\n</head>\n'\
 '<body>Test page</body>\n</html>\n' \
->> "$HOME/Sites/index.html"
+  >>"$HOME/Sites/index.html"
 
 printf "\033c"
 printf "Installing PHP...\n"
@@ -161,16 +161,16 @@ sudo apt install -y php php-fpm php-mysql
 sudo systemctl start php7.4-fpm.service
 sudo systemctl enable php7.4-fpm.service
 sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
-/etc/nginx/conf.d/
+  /etc/nginx/conf.d/
 sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
-/etc/nginx/conf.d/localhost.conf
+  /etc/nginx/conf.d/localhost.conf
 sudo sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' \
-/etc/php/7.4/cli/php.ini
+  /etc/php/7.4/cli/php.ini
 sudo systemctl restart php7.4-fpm.service
 sudo systemctl restart nginx.service
 
 printf "Creating a PHP test page...\n"
-printf "<?php phpinfo(); ?>\n" >> "$HOME/Sites/info.php"
+printf "<?php phpinfo(); ?>\n" >>"$HOME/Sites/info.php"
 
 printf "\033c"
 printf "Installing MySQL...\n"
@@ -178,20 +178,20 @@ sudo apt install -y mysql-server
 
 printf "\033c"
 printf "Installing MongoDB Community Edition...\n"
-wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc \
-| sudo apt-key add -
+wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc |
+  sudo apt-key add -
 printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu \
-bionic/mongodb-org/4.2 multiverse\n" \
-| sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+bionic/mongodb-org/4.2 multiverse\n" |
+  sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
 sudo apt update
 sudo apt install -y mongodb-org
 
 printf "\033c"
 printf "Installing ElasticSearch...\n"
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch \
-| sudo apt-key add -
-printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" \
-| sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |
+  sudo apt-key add -
+printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" |
+  sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 sudo apt update
 sudo apt install -y elasticsearch
 
@@ -199,7 +199,7 @@ printf "\033c"
 printf "Installing Docker...\n"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 sudo apt update
@@ -207,10 +207,10 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io
 
 printf "\033c"
 printf "Installing Visual Studio Code...\n"
-curl https://packages.microsoft.com/keys/microsoft.asc \
-| gpg --dearmor >packages.microsoft.gpg
+curl https://packages.microsoft.com/keys/microsoft.asc |
+  gpg --dearmor >packages.microsoft.gpg
 sudo install -o root -g root -m \
-644 packages.microsoft.gpg /usr/share/keyrings/
+  644 packages.microsoft.gpg /usr/share/keyrings/
 sudo bash -c 'printf '\
 '"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] '\
 'https://packages.microsoft.com/repos/vscode stable main" '\
@@ -221,12 +221,12 @@ sudo apt install -y code
 printf "\033c"
 printf "Installing Tor...\n"
 printf "deb https://deb.torproject.org/torproject.org bionic main\n" \
->> /etc/apt/sources.list
+  >>/etc/apt/sources.list
 printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" \
->> /etc/apt/sources.list
+  >>/etc/apt/sources.list
 curl \
-https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc \
-| gpg --import
+  https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc |
+  gpg --import
 gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
 sudo apt update
 sudo apt install -y tor deb.torproject.org-keyring
@@ -238,15 +238,15 @@ sudo apt install -y torbrowser-launcher
 printf "\033c"
 printf "Installing Google Chrome...\n"
 wget \
-https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
--P "$HOME/Downloads/"
+  https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  -P "$HOME/Downloads/"
 sudo apt install -y "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 
 printf "\033c"
 printf "Installing Slack...\n"
 wget \
-https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
--P "$HOME/Downloads/"
+  https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
+  -P "$HOME/Downloads/"
 sudo apt install -y "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
 
 printf "\033c"
@@ -269,9 +269,9 @@ yes | sudo pip3 install virtualenv virtualenvwrapper
 export WORKON_HOME="$HOME/.virtualenvs"
 mkdir -p $WORKON_HOME
 printf \
-"VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
-source /usr/local/bin/virtualenvwrapper.sh\n"\
->> "$HOME/.bashrc"
+  "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
+source /usr/local/bin/virtualenvwrapper.sh\n" \
+  >>"$HOME/.bashrc"
 source "$HOME/.bashrc"
 
 printf "Creating a Python virtual environment for Jupyter Notebook \
@@ -287,9 +287,9 @@ deactivate jupyter
 printf "\033c"
 printf "Installing Node Version Manager...\n"
 curl -o- \
-https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" \
-|| printf %s "${XDG_CONFIG_HOME}/nvm")"
+  https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" ||
+  printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 source "$HOME/.bashrc"
 command -v nvm
@@ -303,8 +303,8 @@ npm --version
 printf "\033c"
 printf "Installing Yarn...\n"
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-printf "deb https://dl.yarnpkg.com/debian/ stable main\n" \
-| sudo tee /etc/apt/sources.list.d/yarn.list
+printf "deb https://dl.yarnpkg.com/debian/ stable main\n" |
+  sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update
 sudo apt install -y --no-install-recommends yarn
 export PATH="$PATH:/opt/yarn-[version]/bin"
@@ -314,13 +314,13 @@ yarn --version
 printf "\033c"
 printf "Installing Ruby...\n"
 git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
-printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> "$HOME/.bashrc"
-printf 'eval "$(rbenv init -)"\n' >> "$HOME/.bashrc"
+printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >>"$HOME/.bashrc"
+printf 'eval "$(rbenv init -)"\n' >>"$HOME/.bashrc"
 source "$HOME/.bashrc"
 git clone https://github.com/rbenv/ruby-build.git \
-"$HOME/.rbenv/plugins/ruby-build"
+  "$HOME/.rbenv/plugins/ruby-build"
 printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' \
->> "$HOME/.bashrc"
+  >>"$HOME/.bashrc"
 source "$HOME/.bashrc"
 rbenv install 2.7.1
 rbenv global 2.7.1
@@ -341,16 +341,16 @@ printf "\033c"
 printf "Installing Zsh...\n"
 sudo apt install -y zsh
 git clone https://github.com/robbyrussell/oh-my-zsh.git \
-"$HOME/.oh-my-zsh" --depth 1
+  "$HOME/.oh-my-zsh" --depth 1
 cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
 
 printf "Set Zsh theme to 'bira'...\n"
 sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "$HOME/.zshrc"
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-"$HOME/.zsh-syntax-highlighting" --depth 1
+  "$HOME/.zsh-syntax-highlighting" --depth 1
 printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
->> "$HOME/.zshrc"
+  >>"$HOME/.zshrc"
 
 printf "Change the default shell from Bash to Zsh...\n"
 chsh -s /bin/zsh
@@ -369,14 +369,14 @@ printf "Configuring terminal themes...\n"
 dconfdir=/org/gnome/terminal/legacy/profiles:
 
 create_new_terminal_profile() {
-  local profile_ids=($(dconf list $dconfdir/ | grep ^: |\
+  local profile_ids=($(dconf list $dconfdir/ | grep ^: |
     sed 's/\///g' | sed 's/://g'))
   local profile_name="$1"
   local profile_ids_old="$(dconf read "$dconfdir"/list | tr -d "]")"
   local profile_id="$(uuidgen)"
 
-  [ -z "$profile_ids_old" ] && local profile_ids_old="["  # if there's no `list` key
-  [ ${#profile_ids[@]} -gt 0 ] && local delimiter=,  # if the list is empty
+  [ -z "$profile_ids_old" ] && local profile_ids_old="[" # if there's no `list` key
+  [ ${#profile_ids[@]} -gt 0 ] && local delimiter=,      # if the list is empty
   dconf write $dconfdir/list \
     "${profile_ids_old}${delimiter} '$profile_id']"
   dconf write "$dconfdir/:$profile_id"/visible-name "'$profile_name'"
@@ -386,19 +386,19 @@ create_new_terminal_profile() {
 # Create a termianl profile named Dummy
 id=$(create_new_terminal_profile Dummy)
 
-printf "Installing terminal profile 'Earthsong'..."
+printf "Installing terminal profile 'Earthsong'...\n"
 printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
 printf "Set 'Earthsong' as the default profile...\n"
 
 set_default_terminal_profile() {
-  local profile_ids=($(dconf list $dconfdir/ | grep ^: |\
+  local profile_ids=($(dconf list $dconfdir/ | grep ^: |
     sed 's/\///g' | sed 's/://g'))
   local profile_name="$1"
 
   for id in "${profile_ids[@]}"; do
-    if [[ $(dconf read "${dconfdir}/:${id}/visible-name") \
-    == "'""$profile_name""'" ]]; then
+    if [[ $(dconf read "${dconfdir}/:${id}/visible-name") == \
+    "'""$profile_name""'" ]]; then
       gsettings set org.gnome.Terminal.ProfilesList default ${id}
       break
     fi
@@ -409,22 +409,22 @@ set_default_terminal_profile Earthsong
 
 printf "\033c"
 printf "Adding a few shell aliases...\n"
-printf 'alias cls='"'"'printf "\033c"'"'" >> "$HOME/.bashrc"
-printf "alias grpod='git remote prune origin --dry-run'\n" >> "$HOME/.bashrc"
-printf "alias grpo='git remote prune origin'\n" >> "$HOME/.bashrc"
+printf 'alias cls='"'"'printf "\033c"'"'\n" >>"$HOME/.bashrc"
+printf "alias grpod='git remote prune origin --dry-run'\n" >>"$HOME/.bashrc"
+printf "alias grpo='git remote prune origin'\n" >>"$HOME/.bashrc"
 printf \
-'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ '\
-'"--format='"%%"'(refname:short)" | while read branch; '\
-'do mergeBase=$(git merge-base master $branch) && '\
-'[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) '\
-'-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'"'\n' \
->> "$HOME/.bashrc"
+  'alias gds='"'"'git checkout -q master && git for-each-ref refs/heads/ ' \
+  '"--format='"%%"'(refname:short)" | while read branch; ' \
+  'do mergeBase=$(git merge-base master $branch) && ' \
+  '[[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) ' \
+  '-p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done'"'""\n" \
+  >>"$HOME/.bashrc"
 
 printf "Configuring favorite apps...\n"
 gsettings set org.gnome.shell favorite-apps \
-"['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
-'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
-'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
+  "['org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop', \
+  'google-chrome.desktop', 'firefox.desktop', 'slack.desktop', \
+  'Zoom.desktop', 'skypeforlinux.desktop', 'gnome-control-center.desktop']"
 
 printf "\033c"
 printf "Updating and upgrading one last time...\n"
@@ -433,11 +433,11 @@ sudo apt upgrade -y
 
 END_OF_BASHRC='# END OF CUSTOM BASHRC'
 printf "\n%s\n" "$END_OF_BASHRC" \
->> "$HOME/.bashrc"
+  >>"$HOME/.bashrc"
 
 printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
 awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
-"$HOME/.bashrc" >> "$HOME/.zshrc"
+  "$HOME/.bashrc" >>"$HOME/.zshrc"
 
 printf "\033c"
 printf "Cleaning up...\n"
@@ -450,7 +450,7 @@ sudo apt autoremove
 
 printf "\033c"
 printf \
-"************************************************************\n\
+  "************************************************************\n\
 All done!\n\
 ************************************************************\n"
 

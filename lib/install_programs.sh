@@ -18,18 +18,6 @@
 #
 
 install_programs() {
-  # Temporarily remove VirtualBox installation due to full-window
-  # interactive dialogue complications
-  # printf \
-  # "************************************************************\n\
-  # Don't leave yet.\n\
-  # We'll install VirtualBox shortly.\n\
-  # You need to manually select a few things.\n\
-  # After that, you're free.\n\
-  # We'll prompt you again.\n\
-  # ************************************************************\n"
-  # sleep 5
-
   printf "\033c"
   printf "Updating apt package lists...\n"
   sudo apt update
@@ -45,7 +33,7 @@ install_programs() {
   wget --version
 
   # Temporarily remove VirtualBox installation due to full-window
-  # interactive dialogue complications
+  # interactive dialogue complications (agree to terms)
   # printf "Installing VirtualBox...\n"
   # wget -qO- \
   # http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc \
@@ -55,12 +43,6 @@ install_programs() {
   # non-free contrib\n" >> /etc/apt/sources.list.d/virtualbox.org.list'
   # sudo apt update
   # sudo apt install -y virtualbox-6.1
-
-  # printf \
-  # "************************************************************\n\
-  # Now you're free to go.\n\
-  # ************************************************************\n"
-  # sleep 3
 
   printf "\033c"
   printf "Upgrading all packages...\n"
@@ -93,7 +75,9 @@ install_programs() {
 
   printf "\033c"
   printf "Installing GnuPG...\n"
-  sudo apt install -y gnupg gnupg-agent
+  sudo apt install -y \
+    gnupg \
+    gnupg-agent
 
   printf "\033c"
   printf "Installing Vim...\n"
@@ -105,7 +89,9 @@ install_programs() {
 
   printf "\033c"
   printf "Installing PulseAudio and PavuControl...\n"
-  sudo apt install -y pulseaudio pavucontrol
+  sudo apt install -y \
+    pulseaudio \
+    pavucontrol
 
   printf "\033c"
   printf "Installing Flameshot...\n"
@@ -113,7 +99,9 @@ install_programs() {
 
   printf "\033c"
   printf "Installing ClamAV and ClamTK...\n"
-  sudo apt install -y clamav-daemon clamtk
+  sudo apt install -y \
+    clamav-daemon \
+    clamtk
 
   printf "\033c"
   printf "Uninstalling Apache...\n"
@@ -137,7 +125,10 @@ install_programs() {
 
   printf "\033c"
   printf "Installing PHP...\n"
-  sudo apt install -y php php-fpm php-mysql
+  sudo apt install -y \
+    php \
+    php-fpm \
+    php-mysql
   sudo systemctl start php7.4-fpm.service
   sudo systemctl enable php7.4-fpm.service
   sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
@@ -150,7 +141,8 @@ install_programs() {
   sudo systemctl restart nginx.service
 
   printf "Creating a PHP test page...\n"
-  printf "<?php phpinfo(); ?>\n" >>"$HOME/Sites/info.php"
+  printf "<?php phpinfo(); ?>\n" \
+    >>"$HOME/Sites/info.php"
 
   printf "\033c"
   printf "Installing MySQL...\n"
@@ -183,7 +175,10 @@ bionic/mongodb-org/4.2 multiverse\n" |
    $(lsb_release -cs) \
    stable"
   sudo apt update
-  sudo apt install -y docker-ce docker-ce-cli containerd.io
+  sudo apt install -y \
+    docker-ce \
+    docker-ce-cli \
+    containerd.io
 
   printf "\033c"
   printf "Installing Visual Studio Code...\n"
@@ -191,12 +186,13 @@ bionic/mongodb-org/4.2 multiverse\n" |
     gpg --dearmor >packages.microsoft.gpg
   sudo install -o root -g root -m \
     644 packages.microsoft.gpg /usr/share/keyrings/
-  sudo bash -c 'printf ' \
-    '"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] ' \
-    'https://packages.microsoft.com/repos/vscode stable main" ' \
-    '> /etc/apt/sources.list.d/vscode.list'
+  sudo bash -c "printf \
+  \"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
+  https://packages.microsoft.com/repos/vscode stable main\" \
+  > /etc/apt/sources.list.d/vscode.list\n"
   sudo apt update
   sudo apt install -y code
+  rm "$HOME/packages.microsoft.gpg"
 
   printf "\033c"
   printf "Installing Tor...\n"
@@ -207,9 +203,12 @@ bionic/mongodb-org/4.2 multiverse\n" |
   curl \
     https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc |
     gpg --import
-  gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | apt-key add -
+  gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 |
+    apt-key add -
   sudo apt update
-  sudo apt install -y tor deb.torproject.org-keyring
+  sudo apt install -y \
+    tor \
+    deb.torproject.org-keyring
 
   printf "\033c"
   printf "Installing Tor Browser...\n"
@@ -221,6 +220,7 @@ bionic/mongodb-org/4.2 multiverse\n" |
     https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
+  rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 
   printf "\033c"
   printf "Installing Slack...\n"
@@ -228,16 +228,19 @@ bionic/mongodb-org/4.2 multiverse\n" |
     https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
     -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
+  rm "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
 
   printf "\033c"
   printf "Installing Skype...\n"
   wget https://go.skype.com/skypeforlinux-64.deb -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/skypeforlinux-64.deb"
+  rm "$HOME/Downloads/skypeforlinux-64.deb"
 
   printf "\033c"
   printf "Installing Zoom...\n"
   wget https://zoom.us/client/latest/zoom_amd64.deb -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/zoom_amd64.deb"
+  rm "$HOME/Downloads/zoom_amd64.deb"
 
   printf "\033c"
   printf "Installing Python 3...\n"
@@ -245,7 +248,9 @@ bionic/mongodb-org/4.2 multiverse\n" |
 
   printf "\033c"
   printf "Installing virtualenv via pip3...\n"
-  yes | sudo pip3 install virtualenv virtualenvwrapper
+  yes | sudo pip3 install \
+    virtualenv \
+    virtualenvwrapper
   export WORKON_HOME="$HOME/.virtualenvs"
   mkdir -p $WORKON_HOME
   printf \
@@ -262,7 +267,11 @@ called 'jupyter'.\n"
   printf "Installing Jupyter Notebook, numpy, pandas and matplotlib, \
 inside 'jupyter' virtual environment.\n"
   workon jupyter
-  yes | sudo pip3 install -U notebook numpy pandas matplotlib
+  yes | sudo pip3 install -U \
+    notebook \
+    numpy \
+    pandas \
+    matplotlib
   deactivate jupyter
 
   printf "\033c"
@@ -270,7 +279,8 @@ inside 'jupyter' virtual environment.\n"
   curl -o- \
     https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] &&
-    printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+    printf %s "${HOME}/.nvm" ||
+    printf %s "${XDG_CONFIG_HOME}/nvm")"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   source "$HOME/.bashrc"
   command -v nvm
@@ -283,7 +293,8 @@ inside 'jupyter' virtual environment.\n"
 
   printf "\033c"
   printf "Installing Yarn...\n"
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg |
+    sudo apt-key add -
   printf "deb https://dl.yarnpkg.com/debian/ stable main\n" |
     sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt update
@@ -294,9 +305,12 @@ inside 'jupyter' virtual environment.\n"
 
   printf "\033c"
   printf "Installing Ruby...\n"
-  git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
-  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >>"$HOME/.bashrc"
-  printf 'eval "$(rbenv init -)"\n' >>"$HOME/.bashrc"
+  git clone https://github.com/rbenv/rbenv.git \
+    "$HOME/.rbenv"
+  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' \
+    >>"$HOME/.bashrc"
+  printf 'eval "$(rbenv init -)"\n' \
+    >>"$HOME/.bashrc"
   source "$HOME/.bashrc"
   git clone https://github.com/rbenv/ruby-build.git \
     "$HOME/.rbenv/plugins/ruby-build"
@@ -322,14 +336,17 @@ inside 'jupyter' virtual environment.\n"
   printf "Installing Zsh...\n"
   sudo apt install -y zsh
   git clone https://github.com/robbyrussell/oh-my-zsh.git \
-    "$HOME/.oh-my-zsh" --depth 1
-  cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc"
+    "$HOME/.oh-my-zsh" \
+    --depth 1
+  cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" \
+    "$HOME/.zshrc"
 
   printf "Set Zsh theme to 'bira'...\n"
   sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "$HOME/.zshrc"
 
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
-    "$HOME/.zsh-syntax-highlighting" --depth 1
+    "$HOME/.zsh-syntax-highlighting" \
+    --depth 1
   printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
     >>"$HOME/.zshrc"
 }

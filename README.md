@@ -31,11 +31,13 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 - Copy and paste the following command into your terminal and press "Enter":
 ```
-sudo apt update && sudo apt install -y git && \
-git clone \
-https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
-"$HOME/.ubuntu-post-installation" --depth 1 && \
-bash "$HOME/.ubuntu-post-installation/main.sh"
+sudo apt update &&
+  sudo apt install -y git &&
+  git clone \
+    https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
+    "$HOME/.ubuntu-post-installation" \
+    --depth 1 &&
+  bash "$HOME/.ubuntu-post-installation/main.sh"
 ```
 
 ### Option 2: Downloading this repository as a Zip file
@@ -43,7 +45,7 @@ bash "$HOME/.ubuntu-post-installation/main.sh"
 - Download this repository as a ZIP file. You do need to entire repository to properly run this script.
 - Unzip it to a directory.
 - Change directory to unzipped directory.
-- Run the shell script with command \
+- Run the shell script with command (without `sudo`) \
   `bash ./main.sh`
 
 ---

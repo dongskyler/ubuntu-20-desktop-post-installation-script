@@ -17,11 +17,25 @@
 # https://opensource.org/licenses/MIT.
 #
 
-clean_up_downloaded_files() {
-  rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
-  rm "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
-  rm "$HOME/Downloads/skypeforlinux-64.deb"
-  rm "$HOME/Downloads/zoom_amd64.deb"
-  rm "$HOME/packages.microsoft.gpg"
-  sudo apt autoremove
+pre_install_check() {
+  # Check user permission
+  if [[ $EUID -eq 0 ]]; then
+    printf "This script must be run as a regular user.\n"
+    exit 1
+  fi
+
+  printf "\033c"
+
+  # Dummy command to test permissions
+  cd "$HOME" || exit 1
+
+  # Dummy sudo command to test permissions
+  sudo date || exit 1
+
+  printf "Starting...\n"
+
+  for i in {3..1}; do
+    printf "%s\n" "$i"
+    sleep 1
+  done
 }

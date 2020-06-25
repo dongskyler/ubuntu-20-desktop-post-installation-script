@@ -18,13 +18,14 @@
 #
 
 set_favorite_apps() {
-  gsettings set org.gnome.shell favorite-apps \
-    "['org.gnome.Nautilus.desktop', \
-  'org.gnome.Terminal.desktop', \
-  'google-chrome.desktop', \
-  'firefox.desktop', \
-  'slack.desktop', \
-  'Zoom.desktop', \
-  'skypeforlinux.desktop', \
-  'gnome-control-center.desktop']"
+  gsettings set org.gnome.shell favorite-apps "[\
+    'org.gnome.Nautilus.desktop', \
+    'org.gnome.Terminal.desktop', \
+    'google-chrome.desktop', \
+    'firefox.desktop', \
+    'slack.desktop', \
+    'Zoom.desktop', \
+    'skypeforlinux.desktop', \
+    'gnome-control-center.desktop'\
+  ]"
 }

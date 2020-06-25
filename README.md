@@ -10,8 +10,9 @@ Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-s
 ## Table of contents
 
 - [Description](#Description)
-- [Programs to be installed](#Programs-to-be-installed)
 - [How to use this script](#How-to-use-this-script)
+- [Programs to be installed](#Programs-to-be-installed)
+- [Programs to be uninstalled](#Programs-to-be-uninstalled)
 - [License](#License)
 
 ---
@@ -24,27 +25,55 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ---
 
+## How to use this script
+
+### Option 1: Downloading this repository as a Zip file
+
+- Download this repository as a ZIP file.
+- Unzip it to a directory.
+- Change directory to unzipped directory.
+- Run the shell script with command \
+  `bash ./ubuntu_desktop_post_install.sh`
+
+### Option 2: Using Git
+
+- Copy and paste the following command into your terminal and press "Enter":
+```
+sudo apt update && sudo apt install -y git && \
+git clone \
+https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
+"$HOME/.ubuntu-post-installation" --depth 1 && \
+bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
+```
+
+---
+
 ## Programs to be installed
 
-- ClamAV with GUI
+- [ClamAV and ClamTK (Antivirus)](https://help.ubuntu.com/community/ClamAV)
 - cURL
 - Docker
-- ElasticSearch
-- Elinks
-- Flameshot
+- [ElasticSearch](https://www.elastic.co)
+- [ELinks](http://www.elinks.cz)
+- [Flameshot](https://flameshot.js.org/)
 - Git
 - GnuPG
 - Google Chrome
 - MongoDB Community Edition
 - MySQL
 - Nginx
+  - localhost:8080 pointing at $HOME/Sites, with PHP hooked up
 - Node.js
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
 - PHP
+  - Installed packages
+    - php
+    - php-fpm
+    - php-mysql
 - PulseAudio
 - Python 3
-  - Virtual environment called 'jupyter':
+  - Virtual environment named 'jupyter' with the following packaged installed
     - Jupyter Notebook
     - numpy
     - pandas
@@ -69,26 +98,9 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 
 ---
 
-## How to use this script
+## Programs to be uninstalled
 
-### Option 1: Downloading this repository as a Zip file
-
-- Download this repository as a ZIP file.
-- Unzip it to a directory.
-- Change directory to unzipped directory.
-- Run the shell script with command \
-  `bash ./ubuntu_desktop_post_install.sh`
-
-### Option 2: Using Git
-
-- Copy and paste the following command into your terminal and press "Enter":
-```
-sudo apt update && sudo apt install -y git && \
-git clone \
-https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
-"$HOME/.ubuntu-post-installation" --depth 1 && \
-bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
-```
+- Apache2
 
 ---
 

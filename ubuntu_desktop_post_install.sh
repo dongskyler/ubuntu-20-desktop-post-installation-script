@@ -120,7 +120,7 @@ printf "Installing Vim...\n"
 sudo apt install -y vim
 
 printf "\033c"
-printf "Installing Elinks...\n"
+printf "Installing ELinks...\n"
 sudo apt install -y elinks
 
 printf "\033c"
@@ -137,8 +137,8 @@ sudo apt install -y clamav-daemon clamtk
 
 printf "\033c"
 printf "Uninstalling Apache...\n"
-systemctl stop apache2.service
-systemctl disable apache2.service
+sudo systemctl stop apache2.service
+sudo systemctl disable apache2.service
 sudo apt remove -y apache2
 sudo apt autoremove -y
 sudo systemctl daemon-reload
@@ -147,16 +147,27 @@ sudo systemctl reset-failed
 printf "\033c"
 printf "Installing Nginx...\n"
 sudo apt install -y nginx
+sudo systemctl start nginx.service
+sudo systemctl enable nginx.service
+
+printf "Creating an HTML test page..."
+printf '<!DOCTYPE html>\n<html>\n<head>\n<title>Test page</title>\n</head>\n'\
+'<body>Test page</body>\n</html>\n' \
+>> "$HOME/Sites/index.html"
 
 printf "\033c"
 printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
+sudo systemctl start php7.4-fpm.service
+sudo systemctl enable php7.4-fpm.service
 sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
 /etc/nginx/conf.d/
-sudo cp "$HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
-/etc/nginx/conf.d/
-sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$SUDO_USER"'/g' \
+sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
 /etc/nginx/conf.d/localhost.conf
+sudo sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' \
+/etc/php/7.4/cli/php.ini
+sudo systemctl restart php7.4-fpm.service
+sudo systemctl restart nginx.service
 
 printf "Creating a PHP test page...\n"
 printf "<?php phpinfo(); ?>\n" >> "$HOME/Sites/info.php"
@@ -347,6 +358,8 @@ chsh -s /bin/zsh
 printf "\033c"
 printf "Configuring the system...\n"
 
+chmod -R 766 "$HOME/Sites"
+
 printf "Installing terminal theme 'Earthsong'...\n"
 printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
@@ -391,6 +404,7 @@ rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 rm "$HOME/Downloads/slack-desktop-*-amd64.deb"
 rm "$HOME/Downloads/skypeforlinux-64.deb"
 rm "$HOME/Downloads/zoom_amd64.deb"
+rm "$HOME/packages.microsoft.gpg"
 sudo apt autoremove
 
 printf "\033c"

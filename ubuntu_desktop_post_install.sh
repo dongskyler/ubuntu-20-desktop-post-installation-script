@@ -160,7 +160,7 @@ printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
 sudo systemctl start php7.4-fpm.service
 sudo systemctl enable php7.4-fpm.service
-sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
+sudo cp "$HOME/.ubuntu-post-installation/lib/nginx/localhost.conf" \
   /etc/nginx/conf.d/
 sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
   /etc/nginx/conf.d/localhost.conf

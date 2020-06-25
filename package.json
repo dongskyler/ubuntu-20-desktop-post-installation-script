@@ -1,0 +1,15 @@
+{
+  "name": "ubuntu-20-desktop-post-installation-script",
+  "version": "0.0.0",
+  "description": "Script for installing essential programs on a freshly installed Ubuntu Desktop 20 (Focal Fossa)",
+  "main": "ubuntu_desktop_post_install.sh",
+  "repository": "https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git",
+  "author": "Skyler Dong <skylerdong.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "shellcheck *.sh"
+  },
+  "devDependencies": {
+    "shellcheck": "^0.4.2"
+  }
+}

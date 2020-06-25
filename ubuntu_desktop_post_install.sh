@@ -139,7 +139,7 @@ printf "\033c"
 printf "Uninstalling Apache...\n"
 sudo systemctl stop apache2.service
 sudo systemctl disable apache2.service
-sudo apt remove -y apache2
+sudo apt purge -y apache2
 sudo apt autoremove -y
 sudo systemctl daemon-reload
 sudo systemctl reset-failed
@@ -312,7 +312,7 @@ export PATH="$PATH:$(yarn global bin)"
 yarn --version
 
 printf "\033c"
-printf "Installing Ruby... This could take a while.\n"
+printf "Installing Ruby...\n"
 git clone https://github.com/rbenv/rbenv.git "$HOME/.rbenv"
 printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> "$HOME/.bashrc"
 printf 'eval "$(rbenv init -)"\n' >> "$HOME/.bashrc"
@@ -333,9 +333,9 @@ gem install rails -v 6.0.2.2
 rbenv rehash
 rails -v
 
-# printf "\033c"
-# printf "Installing TexLive... This could take a while.\n"
-# sudo apt install -y texlive-full
+printf "\033c"
+printf "Installing TexLive... This could take a while.\n"
+sudo apt install -y texlive-full
 
 printf "\033c"
 printf "Installing Zsh...\n"
@@ -358,13 +358,53 @@ chsh -s /bin/zsh
 printf "\033c"
 printf "Configuring the system...\n"
 
-chmod -R 766 "$HOME/Sites"
+chmod -R 755 "$HOME/Sites"
 
-printf "Installing terminal theme 'Earthsong'...\n"
+printf "Configuring terminal themes...\n"
+
+# First, create a dummy profile and make it the default profile
+# For some reason, the default profile of Ubuntu is null, and
+# causes issues when installing other profiles
+
+dconfdir=/org/gnome/terminal/legacy/profiles:
+
+create_new_terminal_profile() {
+  local profile_ids=($(dconf list $dconfdir/ | grep ^: |\
+    sed 's/\///g' | sed 's/://g'))
+  local profile_name="$1"
+  local profile_ids_old="$(dconf read "$dconfdir"/list | tr -d "]")"
+  local profile_id="$(uuidgen)"
+
+  [ -z "$profile_ids_old" ] && local profile_ids_old="["  # if there's no `list` key
+  [ ${#profile_ids[@]} -gt 0 ] && local delimiter=,  # if the list is empty
+  dconf write $dconfdir/list \
+    "${profile_ids_old}${delimiter} '$profile_id']"
+  dconf write "$dconfdir/:$profile_id"/visible-name "'$profile_name'"
+  printf "%s\n" "$profile_id"
+}
+
+# Create a termianl profile named Dummy
+id=$(create_new_terminal_profile Dummy)
+
+printf "Installing terminal profile 'Earthsong'..."
 printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
-# dconf list /org/gnome/terminal/legacy/profiles:/
-# gsettings set org.gnome.Terminal.ProfilesList default ""
+printf "Set 'Earthsong' as the default profile..."
+
+set_default_terminal_profile() {
+  local profile_ids=($(dconf list $dconfdir/ | grep ^: |\
+    sed 's/\///g' | sed 's/://g'))
+  local profile_name="$1"
+
+  for id in "${profile_ids[@]}"; do
+    if [ $(dconf read "${dconfdir}/:${id}"/visible-name) = 'Earthsong' ]; then
+      gsettings set org.gnome.Terminal.ProfilesList default ${id}
+      break
+    fi
+  done
+}
+
+set_default_terminal_profile Earthsong
 
 printf "\033c"
 printf "Adding a few shell aliases...\n"

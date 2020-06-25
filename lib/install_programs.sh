@@ -119,8 +119,16 @@ install_programs() {
   sudo systemctl enable nginx.service
 
   printf "Creating an HTML test page..."
-  printf '<!DOCTYPE html>\n<html>\n<head>\n<title>Test page</title>\n</head>\n' \
-    '<body>Test page</body>\n</html>\n' \
+  printf "\
+  <"'!'"DOCTYPE html>\n\
+  <html>\n\
+    <head>\n\
+      <title>Test page</title>\n\
+    </head>\n\
+    <body>\
+      Test page\n\
+    </body>\n\
+  </html>\n" \
     >>"$HOME/Sites/index.html"
 
   printf "\033c"

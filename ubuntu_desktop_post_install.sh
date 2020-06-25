@@ -247,7 +247,7 @@ printf "Installing Slack...\n"
 wget \
 https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
 -P "$HOME/Downloads/"
-sudo apt install -y "$HOME/Downloads/slack-desktop-*-amd64.deb"
+sudo apt install -y "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
 
 printf "\033c"
 printf "Installing Skype...\n"
@@ -389,7 +389,7 @@ id=$(create_new_terminal_profile Dummy)
 printf "Installing terminal profile 'Earthsong'..."
 printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
-printf "Set 'Earthsong' as the default profile..."
+printf "Set 'Earthsong' as the default profile...\n"
 
 set_default_terminal_profile() {
   local profile_ids=($(dconf list $dconfdir/ | grep ^: |\
@@ -397,7 +397,8 @@ set_default_terminal_profile() {
   local profile_name="$1"
 
   for id in "${profile_ids[@]}"; do
-    if [ $(dconf read "${dconfdir}/:${id}"/visible-name) = 'Earthsong' ]; then
+    if [[ $(dconf read "${dconfdir}/:${id}/visible-name") \
+    == "'""$profile_name""'" ]]; then
       gsettings set org.gnome.Terminal.ProfilesList default ${id}
       break
     fi

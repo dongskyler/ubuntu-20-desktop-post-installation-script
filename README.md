@@ -23,6 +23,8 @@ This Bash script installs essential programs on a freshly installed Ubuntu.
 
 I often reinstall operating systems on my computers. Reinstalling the programs by hand is inefficient. This script automates the installations of essential programs.
 
+To suit your needs, you can comment out functions or code blocks. The code is highly modularized and well annotated.
+
 ---
 
 ## How to use this script

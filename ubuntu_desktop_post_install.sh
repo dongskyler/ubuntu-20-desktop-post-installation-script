@@ -363,8 +363,9 @@ chmod -R 755 "$HOME/Sites"
 
 printf "Configuring terminal themes...\n"
 
-# First, create a dummy profile
-# For some reason, if we don't, it has issues installing other profiles
+# First, create a dummy profile.
+# For some reason, if we don't, the system cannot properly
+# install other profiles
 
 dconfdir=/org/gnome/terminal/legacy/profiles:
 

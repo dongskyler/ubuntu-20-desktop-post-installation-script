@@ -104,6 +104,23 @@ bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 
 ---
 
+## Configurations
+
+- Terminal profile
+  - Install profile 'Earthsong'
+  - Set 'Earthsong' as the default profile
+- Set favorite apps as follows
+  - Files
+  - Terminal
+  - Google Chrome
+  - Firefox
+  - Slack
+  - Zoom
+  - Skype
+  - Settings
+
+---
+
 ## License
 
 The code is under MIT license.

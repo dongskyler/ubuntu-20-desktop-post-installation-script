@@ -25,7 +25,6 @@ fi
 cd "$HOME" || exit 1
 
 printf "\033c"
-
 sudo date
 
 # printf \
@@ -53,7 +52,7 @@ printf "\n%s\n" "$BEGINNING_OF_BASHRC" \
 >> "$HOME/.bashrc"
 
 printf "\033c"
-printf "Updating...\n"
+printf "Updating apt package lists...\n"
 sudo apt update
 
 printf "\033c"
@@ -84,7 +83,7 @@ wget --version
 # sleep 3
 
 printf "\033c"
-printf "Upgrading...\n"
+printf "Upgrading all packages...\n"
 sudo apt upgrade -y
 
 printf "\033c"
@@ -121,7 +120,7 @@ printf "Installing Vim...\n"
 sudo apt install -y vim
 
 printf "\033c"
-printf "Installing elinks...\n"
+printf "Installing Elinks...\n"
 sudo apt install -y elinks
 
 printf "\033c"
@@ -133,7 +132,7 @@ printf "Installing Flameshot...\n"
 sudo apt install -y flameshot
 
 printf "\033c"
-printf "Installing ClamAV...\n"
+printf "Installing ClamAV and ClamTK...\n"
 sudo apt install -y clamav-daemon clamtk
 
 printf "\033c"
@@ -247,8 +246,8 @@ sudo apt install -y python3-pip
 printf "\033c"
 printf "Installing virtualenv via pip3...\n"
 yes | sudo pip3 install virtualenv virtualenvwrapper
-mkdir "$HOME/.virtualenv"
-export WORKON_HOME="$HOME/.virtualenv"
+export WORKON_HOME="$HOME/.virtualenvs"
+mkdir -p $WORKON_HOME
 printf \
 "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n"\

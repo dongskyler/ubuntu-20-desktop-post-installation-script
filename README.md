@@ -77,7 +77,7 @@ I often reinstall operating systems on my computers. Reinstalling the programs b
 - Unzip it to a directory.
 - Change directory to unzipped directory.
 - Run the shell script with command \
-  `sudo ./ubuntu_desktop_post_install.sh`
+  `bash ./ubuntu_desktop_post_install.sh`
 
 ### Option 2: Using Git
 
@@ -87,7 +87,7 @@ sudo apt update && sudo apt install -y git && \
 git clone \
 https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
 "$HOME/.ubuntu-post-installation" --depth 1 && \
-sudo bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
+bash "$HOME/.ubuntu-post-installation/ubuntu_desktop_post_install.sh"
 ```
 
 ---

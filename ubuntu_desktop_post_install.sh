@@ -437,7 +437,7 @@ awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
 printf "\033c"
 printf "Cleaning up...\n"
 rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
-rm "$HOME/Downloads/slack-desktop-*-amd64.deb"
+rm "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
 rm "$HOME/Downloads/skypeforlinux-64.deb"
 rm "$HOME/Downloads/zoom_amd64.deb"
 rm "$HOME/packages.microsoft.gpg"

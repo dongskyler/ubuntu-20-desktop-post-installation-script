@@ -136,17 +136,26 @@ printf "Installing ClamAV and ClamTK...\n"
 sudo apt install -y clamav-daemon clamtk
 
 printf "\033c"
+printf "Uninstalling Apache...\n"
+systemctl stop apache2.service
+systemctl disable apache2.service
+sudo apt remove -y apache2
+sudo apt autoremove -y
+sudo systemctl daemon-reload
+sudo systemctl reset-failed
+
+printf "\033c"
 printf "Installing Nginx...\n"
 sudo apt install -y nginx
 
 printf "\033c"
 printf "Installing PHP...\n"
 sudo apt install -y php php-fpm php-mysql
-cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
+sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
 /etc/nginx/conf.d/
-cp "$HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
+sudo cp "$HOME/.ubuntu-post-installation/config/nginx/php-fpm.conf" \
 /etc/nginx/conf.d/
-sed -i -e 's/USERNAME_PLACEHOLDER/'"$SUDO_USER"'/g' \
+sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$SUDO_USER"'/g' \
 /etc/nginx/conf.d/localhost.conf
 
 printf "Creating a PHP test page...\n"

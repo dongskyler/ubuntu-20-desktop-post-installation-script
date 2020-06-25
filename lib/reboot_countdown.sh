@@ -23,7 +23,7 @@ reboot_countdown() {
   for i in {10..1}; do
     printf "%s\n" "$i"
     read -t 1 -n 1 -r
-    if [ $? == 0 ]; then
+    if [[ $? == 0 ]]; then
       printf "\
     Reboot aborted.\n\
     All done.\n"

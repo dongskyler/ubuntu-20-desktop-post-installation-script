@@ -276,22 +276,6 @@ stable\n" |
     docker-ce-cli \
     containerd.io
 
-  # VirtualBox is temporarily (but indefinitely) excluded from the
-  # installation, due to complications of its interactive full-window
-  # dialogues of agree-to-terms and MOK key setups.
-  #
-  #   print_header "Installing VirtualBox..."
-  #   wget -qO- \
-  #     http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc |
-  #     sudo apt-key add -
-  #   printf "\
-  # deb http://download.virtualbox.org/virtualbox/debian \
-  # focal \
-  # non-free contrib\n" |
-  #     sudo tee /etc/apt/sources.list.d/virtualbox.org.list
-  #   sudo apt-get update -y
-  #   sudo apt-get install -y virtualbox-6.1
-
   print_header "Installing Tor..."
   printf "\
 deb https://deb.torproject.org/torproject.org \

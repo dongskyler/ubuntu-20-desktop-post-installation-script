@@ -93,8 +93,8 @@ install_programs() {
     clamtk
 
   print_header "Uninstalling Apache..."
-  sudo systemctl stop apache2.service
   sudo systemctl disable apache2.service
+  sudo systemctl stop apache2.service
   sudo apt-get purge -y apache2
   sudo apt-get autoremove -y
   sudo systemctl daemon-reload
@@ -252,11 +252,13 @@ bionic/mongodb-org/4.2 multiverse\n" |
     virtualenv \
     virtualenvwrapper
   export WORKON_HOME="$HOME/.virtualenvs"
+  export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
+  source /usr/local/bin/virtualenvwrapper.sh
   mkdir -p $WORKON_HOME
   printf \
     "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
-source /usr/local/bin/virtualenvwrapper.sh\n" |
-    tee -a "$HOME/.bashrc"
+source /usr/local/bin/virtualenvwrapper.sh\n" \
+    >>"$HOME/.bashrc"
 
   print_header "Creating a Python virtual environment for Jupyter Notebook \
 called 'jupyter'."
@@ -319,8 +321,8 @@ inside 'jupyter' virtual environment."
   rbenv rehash
   rails -v
 
-  print_header "Installing TexLive... This could take a while."
-  sudo apt-get install -y texlive-full
+  # print_header "Installing TexLive... This could take a while."
+  # sudo apt-get install -y texlive-full
 
   print_header "Installing Zsh..."
   sudo apt-get install -y zsh

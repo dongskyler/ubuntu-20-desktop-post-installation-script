@@ -20,7 +20,7 @@
 main() {
   # Load functions from lib
   for f in ./lib/*.sh; do
-    source $f
+    source "$f"
   done
 
   print_header "BEGINNING OF INSTALLATION SCRIPT."

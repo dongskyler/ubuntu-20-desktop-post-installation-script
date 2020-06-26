@@ -52,8 +52,7 @@ sudo apt-get update -y &&
   sudo apt-get install -y git &&
   git clone \
     https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
-    "$HOME/.ubuntu-post-installation" \
-    --depth 1 &&
+    "$HOME/.ubuntu-post-installation" --depth 1 &&
   cd "$HOME/.ubuntu-post-installation/" &&
   bash ./main.sh
 ```

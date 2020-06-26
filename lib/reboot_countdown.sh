@@ -27,8 +27,8 @@ Press ANY KEY to abort.\n"
     read -t 1 -n 1 -r
     if [[ $? == 0 ]]; then
       printf "\
-    Reboot aborted.\n\
-    All done.\n"
+Reboot aborted.\n\
+All done.\n"
       exit 0
     fi
   done

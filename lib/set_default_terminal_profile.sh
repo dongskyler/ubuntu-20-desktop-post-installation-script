@@ -28,7 +28,7 @@ set_default_terminal_profile() {
   for id in "${profile_ids[@]}"; do
     if [[ $(dconf read "${dconfdir}/:${id}/visible-name") == \
     "'""$profile_name""'" ]]; then
-      gsettings set org.gnome.Terminal.ProfilesList default ${id}
+      gsettings set org.gnome.Terminal.ProfilesList default "${id}"
       break
     fi
   done

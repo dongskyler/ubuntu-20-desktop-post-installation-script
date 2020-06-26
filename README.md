@@ -98,6 +98,17 @@ sudo apt update &&
 - Tor Browser
 - Vim
 - Visual Studio Code
+  - Extensions to be installed
+    - bmewburn.vscode-intelephense-client
+    - dsznajder.es7-react-js-snippets
+    - eamodio.gitlens
+    - esbenp.prettier-vscode
+    - foxundermoon.shell-format
+    - james-yu.latex-workshop
+    - jdforsythe.add-new-line-to-files
+    - ms-python.python
+    - sibiraj-s.vscode-scss-formatter
+    - visualstudioexptteam.vscodeintellicode
 - Wget
 - Yarn
 - Zoom

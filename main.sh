@@ -25,25 +25,14 @@ main() {
 
   print_header "BEGINNING OF INSTALLATION SCRIPT."
 
-  # Do pre-install checks
-  pre_install_check
+  # Configuring the system before installing programs
+  pre_install_config
 
   # Uninstall programs
   uninstall_programs
 
   # Install programs
   install_programs
-
-  # Configurate the system
-  print_header "Configuring the system..."
-
-  print_header "Set Zsh theme to 'bira'..."
-  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' \
-    "$HOME/.zshrc"
-
-  # Change the default shell from Bash to Zsh
-  print_header "Change the default shell from Bash to Zsh..."
-  chsh -s /bin/zsh
 
   # Add shell aliases
   add_aliases
@@ -67,8 +56,8 @@ main() {
   # Set favoriate apps to dash
   set_favorite_apps
 
-  # Post-installation checks
-  post_install_check
+  # Configuring the system after installing programs
+  post_install_config
 
   # Clean up
   clean_up
@@ -80,4 +69,5 @@ main() {
   reboot_countdown
 }
 
-main "$@" | tee -a "$HOME/.ubuntu_post_install.log"
+main "$@" |
+  tee -a "$HOME/.ubuntu_post_install.log"

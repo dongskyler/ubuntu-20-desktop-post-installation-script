@@ -116,8 +116,8 @@ main\n" |
     code --install-extension "$vs_ext"
   done
 
-  # print_header "Installing TexLive... This could take a while."
-  # sudo apt-get install -y texlive-full
+  print_header "Installing TexLive... This could take a while."
+  sudo apt-get install -y texlive-full
 
   print_header "Installing pip3 for Python 3..."
   sudo apt-get install -y python3-pip

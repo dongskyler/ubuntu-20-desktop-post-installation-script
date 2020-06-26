@@ -18,7 +18,7 @@
 #
 
 post_install_check() {
-  print_header "Post-installation checks..."
+  print_header "Configuring the system after installing programs..."
 
   print_header "Creating an HTML test page..."
   printf "\
@@ -59,4 +59,12 @@ post_install_check() {
   awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
     "$HOME/.bashrc" |
     tee -a "$HOME/.zshrc"
+
+  print_header "Set Zsh theme to 'bira'..."
+  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' \
+    "$HOME/.zshrc"
+
+  # Change the default shell from Bash to Zsh
+  print_header "Change the default shell from Bash to Zsh..."
+  chsh -s /bin/zsh
 }

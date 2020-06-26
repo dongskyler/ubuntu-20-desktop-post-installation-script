@@ -18,7 +18,7 @@
 #
 
 pre_install_check() {
-  print_header "Pre-installation checks..."
+  print_header "Configuring the system before installing programs..."
 
   # Check user permission
   if [[ $EUID -eq 0 ]]; then

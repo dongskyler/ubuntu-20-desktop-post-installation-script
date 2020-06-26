@@ -4,7 +4,7 @@
   "description": "Script for installing essential programs on a freshly installed Ubuntu Desktop 20 (Focal Fossa)",
   "main": "main.sh",
   "repository": "https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git",
-  "author": "Skyler Dong <skylerdong.com>",
+  "author": "Skyler Dong <skyler@skylerdong.com>",
   "license": "MIT",
   "scripts": {
     "lint": "shellcheck ./**/*.sh",

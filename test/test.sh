@@ -19,7 +19,7 @@
 
 main() {
   for f in ./lib/*.sh; do
-    source $f
+    source "$f"
   done
 
   print_header "Beginning of test script."
@@ -28,7 +28,7 @@ main() {
 
   for f in ./lib/*.sh; do
     printf "%s\n" "$f"
-    source $f
+    source "$f"
   done
 
   test_lib

@@ -37,6 +37,10 @@ main() {
   # Configurate the system
   print_header "Configuring the system..."
 
+  print_header "Set Zsh theme to 'bira'..."
+  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' \
+    "$HOME/.zshrc"
+
   # Change the default shell from Bash to Zsh
   print_header "Change the default shell from Bash to Zsh..."
   chsh -s /bin/zsh

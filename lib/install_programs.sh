@@ -158,8 +158,8 @@ inside 'jupyter' virtual environment."
     https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh |
     bash
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] &&
-    printf %s "${HOME}/.nvm" ||
-    printf %s "${XDG_CONFIG_HOME}/nvm")"
+    printf "%s\n" "${HOME}/.nvm" ||
+    printf "%s\n" "${XDG_CONFIG_HOME}/nvm")"
   [ -s "$NVM_DIR/nvm.sh" ] &&
     source "$NVM_DIR/nvm.sh"
   command -v nvm
@@ -198,7 +198,7 @@ main\n" |
   eval "$(rbenv init -)"
   git clone https://github.com/rbenv/ruby-build.git \
     "$HOME/.rbenv/plugins/ruby-build"
-  printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' |
+  printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"\n' |
     tee -a "$HOME/.bashrc"
   export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
   rbenv install 2.7.1
@@ -347,10 +347,7 @@ main\n" |
   cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" \
     "$HOME/.zshrc"
 
-  printf "Set Zsh theme to 'bira'...\n"
-  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' \
-    "$HOME/.zshrc"
-
+  print_header "Installing Zsh Syntax Highlighting"
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     "$HOME/.zsh-syntax-highlighting" \
     --depth 1

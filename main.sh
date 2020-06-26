@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author:
-# Skyler Dong <skylerdong.com>
+# Skyler Dong <skyler@skylerdong.com>
 #
 # Description:
 # Script for installing essential programs on a freshly installed
@@ -18,16 +18,19 @@
 #
 
 main() {
+
   # Load functions from lib
   for f in ./lib/*.sh; do
     source $f
   done
 
+  print_header "Beginning of installation script."
+
   # Do pre-install checks
   pre_install_check
 
   # Create some directories
-  printf "Creating some directories...\n"
+  print_header "Creating some directories..."
 
   # localhost:8080 will be rooted here
   mkdir "$HOME/Sites"
@@ -41,8 +44,7 @@ main() {
   install_programs
 
   # Configurate the system
-  printf "\033c"
-  printf "Configuring the system...\n"
+  print_header "Configuring the system..."
 
   # Make sure files in $HOME/Sites are readable
   # and excutable by root (whom Nginx, PHP, etc are run as)
@@ -68,17 +70,15 @@ main() {
   set_default_terminal_profile Earthsong
 
   # Add shell aliases
-  printf "\033c"
-  printf "Adding a few shell aliases...\n"
+  print_header "Adding a few shell aliases..."
   add_aliases
 
   # Set favoriate apps to dash
-  printf "Pinning favorite apps to dash...\n"
+  print_header "Pinning favorite apps to dash..."
   set_favorite_apps
 
   # Update and upgrade one last time
-  printf "\033c"
-  printf "Updating and upgrading one last time...\n"
+  print_header "Updating and upgrading one last time..."
   sudo apt update
   sudo apt upgrade -y
 
@@ -94,19 +94,14 @@ main() {
     >>"$HOME/.zshrc"
 
   # Clean up
-  printf "\033c"
-  printf "Cleaning up...\n"
+  print_header "Cleaning up..."
   clean_up
 
   # Notify user of the end of this script
-  printf "\033c"
-  printf "\
-************************************************************\n\
-All done.\n\
-************************************************************\n"
+  print_header "All done. End of installation script."
 
   # Reboot the computer
   reboot_countdown
 }
 
-main "$@"
+main "$@" | tee -a "$HOME/.ubuntu_post_install.log"

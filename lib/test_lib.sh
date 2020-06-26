@@ -18,5 +18,5 @@
 #
 
 test_lib() {
-  printf "Script is loaded.\n"
+  printf "Script 'test_lib.sh' is loaded. This is a test.\n"
 }

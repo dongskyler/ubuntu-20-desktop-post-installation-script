@@ -32,10 +32,6 @@ reboot_countdown() {
   done
 
   printf "Rebooting...\n"
-  for i in {3..1}; do
-    printf "%s\n" "$i"
-    sleep 1
-  done
 
   sudo reboot
 }

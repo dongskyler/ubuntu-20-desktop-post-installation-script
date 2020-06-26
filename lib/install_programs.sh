@@ -18,23 +18,20 @@
 #
 
 install_programs() {
-  printf "\033c"
-  printf "Updating apt package lists...\n"
+  print_header "Updating apt package lists..."
   sudo apt update
 
-  printf "\033c"
-  printf "Installing cURL...\n"
+  print_header "Installing cURL..."
   sudo apt install -y curl
   curl --version
 
-  printf "\033c"
-  printf "Installing Wget...\n"
+  print_header "Installing Wget..."
   sudo apt install -y wget
   wget --version
 
   # Temporarily remove VirtualBox installation due to full-window
   # interactive dialogue complications (agree to terms)
-  # printf "Installing VirtualBox...\n"
+  # print_header "Installing VirtualBox..."
   # wget -qO- \
   # http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc \
   # | sudo apt-key add -
@@ -44,12 +41,10 @@ install_programs() {
   # sudo apt update
   # sudo apt install -y virtualbox-6.1
 
-  printf "\033c"
-  printf "Upgrading all packages...\n"
+  print_header "Upgrading all packages..."
   sudo apt upgrade -y
 
-  printf "\033c"
-  printf "Installing some dependencies...\n"
+  print_header "Installing some dependencies..."
   sudo apt install -y \
     zlib1g-dev \
     build-essential \
@@ -69,42 +64,34 @@ install_programs() {
     dconf-cli \
     uuid-runtime
 
-  printf "\033c"
-  printf "Installing Git...\n"
+  print_header "Installing Git..."
   sudo apt install -y git
 
-  printf "\033c"
-  printf "Installing GnuPG...\n"
+  print_header "Installing GnuPG..."
   sudo apt install -y \
     gnupg \
     gnupg-agent
 
-  printf "\033c"
-  printf "Installing Vim...\n"
+  print_header "Installing Vim..."
   sudo apt install -y vim
 
-  printf "\033c"
-  printf "Installing ELinks...\n"
+  print_header "Installing ELinks..."
   sudo apt install -y elinks
 
-  printf "\033c"
-  printf "Installing PulseAudio and PavuControl...\n"
+  print_header "Installing PulseAudio and PavuControl..."
   sudo apt install -y \
     pulseaudio \
     pavucontrol
 
-  printf "\033c"
-  printf "Installing Flameshot...\n"
+  print_header "Installing Flameshot..."
   sudo apt install -y flameshot
 
-  printf "\033c"
-  printf "Installing ClamAV and ClamTK...\n"
+  print_header "Installing ClamAV and ClamTK..."
   sudo apt install -y \
     clamav-daemon \
     clamtk
 
-  printf "\033c"
-  printf "Uninstalling Apache...\n"
+  print_header "Uninstalling Apache..."
   sudo systemctl stop apache2.service
   sudo systemctl disable apache2.service
   sudo apt purge -y apache2
@@ -112,8 +99,7 @@ install_programs() {
   sudo systemctl daemon-reload
   sudo systemctl reset-failed
 
-  printf "\033c"
-  printf "Installing Nginx...\n"
+  print_header "Installing Nginx..."
   sudo apt install -y nginx
   sudo systemctl start nginx.service
   sudo systemctl enable nginx.service
@@ -131,8 +117,7 @@ install_programs() {
   </html>\n" \
     >>"$HOME/Sites/index.html"
 
-  printf "\033c"
-  printf "Installing PHP...\n"
+  print_header "Installing PHP..."
   sudo apt install -y \
     php \
     php-fpm \
@@ -148,16 +133,14 @@ install_programs() {
   sudo systemctl restart php7.4-fpm.service
   sudo systemctl restart nginx.service
 
-  printf "Creating a PHP test page...\n"
+  printf "Creating a PHP test page..."
   printf "<?php phpinfo(); ?>\n" \
     >>"$HOME/Sites/info.php"
 
-  printf "\033c"
-  printf "Installing MySQL...\n"
+  print_header "Installing MySQL..."
   sudo apt install -y mysql-server
 
-  printf "\033c"
-  printf "Installing MongoDB Community Edition...\n"
+  print_header "Installing MongoDB Community Edition..."
   wget -qO- https://www.mongodb.org/static/pgp/server-4.2.asc |
     sudo apt-key add -
   printf "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu \
@@ -166,8 +149,7 @@ bionic/mongodb-org/4.2 multiverse\n" |
   sudo apt update
   sudo apt install -y mongodb-org
 
-  printf "\033c"
-  printf "Installing ElasticSearch...\n"
+  print_header "Installing ElasticSearch..."
   wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |
     sudo apt-key add -
   printf "deb https://artifacts.elastic.co/packages/7.x/apt stable main\n" |
@@ -175,8 +157,7 @@ bionic/mongodb-org/4.2 multiverse\n" |
   sudo apt update
   sudo apt install -y elasticsearch
 
-  printf "\033c"
-  printf "Installing Docker...\n"
+  print_header "Installing Docker..."
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -188,22 +169,21 @@ bionic/mongodb-org/4.2 multiverse\n" |
     docker-ce-cli \
     containerd.io
 
-  printf "\033c"
-  printf "Installing Visual Studio Code...\n"
+  print_header "Installing Visual Studio Code..."
   curl https://packages.microsoft.com/keys/microsoft.asc |
     gpg --dearmor >packages.microsoft.gpg
   sudo install -o root -g root -m \
     644 packages.microsoft.gpg /usr/share/keyrings/
   sudo bash -c "printf \
   \"deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] \
-  https://packages.microsoft.com/repos/vscode stable main\" \
+  https://packages.microsoft.com/repos/vscode stable main\n\" \
   > /etc/apt/sources.list.d/vscode.list"
   sudo apt update
   sudo apt install -y code
   rm "$HOME/packages.microsoft.gpg"
   source "$HOME/.bashrc"
 
-  printf "Installing Visual Studio Code extensions...\n"
+  printf "Installing Visual Studio Code extensions..."
   declare -a vscode_extensions
   vscode_extensions=(
     bmewburn.vscode-intelephense-client
@@ -222,8 +202,7 @@ bionic/mongodb-org/4.2 multiverse\n" |
     code --install-extension "$vs_ext"
   done
 
-  printf "\033c"
-  printf "Installing Tor...\n"
+  print_header "Installing Tor..."
   printf "deb https://deb.torproject.org/torproject.org bionic main\n" \
     >>/etc/apt/sources.list
   printf "deb-src https://deb.torproject.org/torproject.org bionic main\n" \
@@ -238,62 +217,55 @@ bionic/mongodb-org/4.2 multiverse\n" |
     tor \
     deb.torproject.org-keyring
 
-  printf "\033c"
-  printf "Installing Tor Browser...\n"
+  print_header "Installing Tor Browser..."
   sudo apt install -y torbrowser-launcher
 
-  printf "\033c"
-  printf "Installing Google Chrome...\n"
+  print_header "Installing Google Chrome..."
   wget \
     https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
     -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
   rm "$HOME/Downloads/google-chrome-stable_current_amd64.deb"
 
-  printf "\033c"
-  printf "Installing Slack...\n"
+  print_header "Installing Slack..."
   wget \
     https://downloads.slack-edge.com/linux_releases/slack-desktop-4.4.3-amd64.deb \
     -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
   rm "$HOME/Downloads/slack-desktop-4.4.3-amd64.deb"
 
-  printf "\033c"
-  printf "Installing Skype...\n"
+  print_header "Installing Skype..."
   wget https://go.skype.com/skypeforlinux-64.deb -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/skypeforlinux-64.deb"
   rm "$HOME/Downloads/skypeforlinux-64.deb"
 
-  printf "\033c"
-  printf "Installing Zoom...\n"
+  print_header "Installing Zoom..."
   wget https://zoom.us/client/latest/zoom_amd64.deb -P "$HOME/Downloads/"
   sudo apt install -y "$HOME/Downloads/zoom_amd64.deb"
   rm "$HOME/Downloads/zoom_amd64.deb"
 
-  printf "\033c"
-  printf "Installing Python 3...\n"
+  print_header "Installing Python 3..."
   sudo apt install -y python3-pip
 
-  printf "\033c"
-  printf "Installing virtualenv via pip3...\n"
+  print_header "Installing virtualenv via pip3..."
   yes | sudo pip3 install \
     virtualenv \
     virtualenvwrapper
   export WORKON_HOME="$HOME/.virtualenvs"
   mkdir -p $WORKON_HOME
+  source /usr/local/bin/virtualenvwrapper.sh
   printf \
     "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n" \
     >>"$HOME/.bashrc"
   source "$HOME/.bashrc"
 
-  printf "\033c"
-  printf "Creating a Python virtual environment for Jupyter Notebook \
-called 'jupyter'.\n"
+  print_header "Creating a Python virtual environment for Jupyter Notebook \
+called 'jupyter'."
   mkvirtualenv jupyter
 
-  printf "Installing Jupyter Notebook, numpy, pandas and matplotlib, \
-inside 'jupyter' virtual environment.\n"
+  print_header "Installing Jupyter Notebook, numpy, pandas and matplotlib, \
+inside 'jupyter' virtual environment."
   workon jupyter
   yes | sudo pip3 install -U \
     notebook \
@@ -302,8 +274,7 @@ inside 'jupyter' virtual environment.\n"
     matplotlib
   deactivate jupyter
 
-  printf "\033c"
-  printf "Installing Node Version Manager...\n"
+  print_header "Installing Node Version Manager..."
   curl -o- \
     https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
   export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] &&
@@ -313,14 +284,12 @@ inside 'jupyter' virtual environment.\n"
   source "$HOME/.bashrc"
   command -v nvm
 
-  printf "\033c"
-  printf "Installing Node.js and Node Package Manager...\n"
+  print_header "Installing Node.js and Node Package Manager..."
   nvm install node
   node --version
   npm --version
 
-  printf "\033c"
-  printf "Installing Yarn...\n"
+  print_header "Installing Yarn..."
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg |
     sudo apt-key add -
   printf "deb https://dl.yarnpkg.com/debian/ stable main\n" |
@@ -331,8 +300,7 @@ inside 'jupyter' virtual environment.\n"
   export PATH="$PATH:$(yarn global bin)"
   yarn --version
 
-  printf "\033c"
-  printf "Installing Ruby...\n"
+  print_header "Installing Ruby..."
   git clone https://github.com/rbenv/rbenv.git \
     "$HOME/.rbenv"
   printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' \
@@ -350,18 +318,15 @@ inside 'jupyter' virtual environment.\n"
   ruby -v
   gem install bundler
 
-  printf "\033c"
-  printf "Installing Rails...\n"
+  print_header "Installing Rails..."
   gem install rails -v 6.0.2.2
   rbenv rehash
   rails -v
 
-  printf "\033c"
-  printf "Installing TexLive... This could take a while.\n"
+  print_header "Installing TexLive... This could take a while."
   sudo apt install -y texlive-full
 
-  printf "\033c"
-  printf "Installing Zsh...\n"
+  print_header "Installing Zsh..."
   sudo apt install -y zsh
   git clone https://github.com/robbyrussell/oh-my-zsh.git \
     "$HOME/.oh-my-zsh" \
@@ -370,11 +335,13 @@ inside 'jupyter' virtual environment.\n"
     "$HOME/.zshrc"
 
   printf "Set Zsh theme to 'bira'...\n"
-  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' "$HOME/.zshrc"
+  sed -i -e 's/ZSH_THEME="robbyrussell"/ZSH_THEME="bira"/g' \
+    "$HOME/.zshrc"
 
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     "$HOME/.zsh-syntax-highlighting" \
     --depth 1
-  printf 'source $HOME/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\n' \
+  printf "source \""'$HOME'"\
+  /.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n" \
     >>"$HOME/.zshrc"
 }

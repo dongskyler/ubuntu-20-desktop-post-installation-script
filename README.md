@@ -15,6 +15,8 @@ Author: Skyler Dong (<skyler@skylerdong.com>)
 - [How to use this script](#How-to-use-this-script)
 - [Programs to be installed](#Programs-to-be-installed)
 - [Programs to be uninstalled](#Programs-to-be-uninstalled)
+- [Configurations](#Configurations)
+- [Logs](#Logs)
 - [Notes](#Notes)
 - [License](#License)
 
@@ -80,7 +82,7 @@ sudo apt update &&
 - MongoDB Community Edition
 - MySQL
 - Nginx
-  - localhost:8080 pointing at $HOME/Sites, with PHP hooked up
+  - localhost:8080 pointing at "$HOME/Sites", with Nginx and PHP hooked up
 - Node.js
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
@@ -149,6 +151,14 @@ sudo apt update &&
   - Zoom
   - Skype
   - Settings
+
+---
+
+## Logs
+
+A log will be saved at "$HOME/.ubuntu_post_install.log".
+
+If the log file is already present, new logs will be appended to the file.
 
 ---
 

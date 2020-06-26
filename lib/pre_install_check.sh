@@ -24,18 +24,11 @@ pre_install_check() {
     exit 1
   fi
 
-  printf "\033c"
-
-  # Dummy command to test permissions
+  # Check if we have access to home directory
   cd "$HOME" || exit 1
 
-  # Dummy sudo command to test permissions
-  sudo date || exit 1
+  # Check sudo permission
+  # Also output the datetime as the first line of the log
+  sudo -v || exit 1
 
-  printf "Starting...\n"
-
-  for i in {3..1}; do
-    printf "%s\n" "$i"
-    sleep 1
-  done
 }

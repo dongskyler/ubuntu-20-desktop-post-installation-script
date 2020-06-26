@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author:
-# Skyler Dong <skylerdong.com>
+# Skyler Dong <skyler@skylerdong.com>
 #
 # Description:
 # Script for installing essential programs on a freshly installed
@@ -203,7 +203,7 @@ bionic/mongodb-org/4.2 multiverse\n" |
   rm "$HOME/packages.microsoft.gpg"
   source "$HOME/.bashrc"
 
-  printf "Installing Visual Studio Code extensions..."
+  printf "Installing Visual Studio Code extensions...\n"
   declare -a vscode_extensions
   vscode_extensions=(
     bmewburn.vscode-intelephense-client
@@ -218,8 +218,8 @@ bionic/mongodb-org/4.2 multiverse\n" |
     visualstudioexptteam.vscodeintellicode
   )
 
-  for ext in "${vscode_extensions[@]}"; do
-    code --install-extension "$ext"
+  for vs_ext in "${vscode_extensions[@]}"; do
+    code --install-extension "$vs_ext"
   done
 
   printf "\033c"

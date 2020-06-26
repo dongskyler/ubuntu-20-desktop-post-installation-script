@@ -40,7 +40,7 @@ pre_install_check() {
   mkdir "$HOME/Sites"
 
   # Mark the beginning of our custom Bash profile
-  printf "Mark the beginning of our custom Bash profile\n"
+  print_header "Mark the beginning of our custom Bash profile"
   BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
   printf "\n%s\n" "$BEGINNING_OF_BASHRC" |
     tee -a "$HOME/.bashrc"

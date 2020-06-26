@@ -1,9 +1,9 @@
 # Ubuntu 20 Desktop Post-Installation Script
 
 Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script](https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script)
-Author: Skyler Dong <skyler@skylerdong.com>
 
-[![CodeFactor](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script/badge)](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script)
+Author: Skyler Dong (<skyler@skylerdong.com>)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -11,6 +11,7 @@ Author: Skyler Dong <skyler@skylerdong.com>
 ## Table of contents
 
 - [Description](#Description)
+- [Status](#Status)
 - [How to use this script](#How-to-use-this-script)
 - [Programs to be installed](#Programs-to-be-installed)
 - [Programs to be uninstalled](#Programs-to-be-uninstalled)
@@ -29,6 +30,12 @@ However, things are really easy to break, when I do software development, when I
 I wrote this script to automate the installations and configurations of essential programs, including Google Chrome, LaTex, Nginx, Node.js, PHP, Python 3, Ruby on Rails, Vim, VS Code, etc, so that I can immediately work on projects without further setups.
 
 The code is highly modularized and well annotated. You can modify the code to suit your needs.
+
+---
+
+## Status
+
+[![CodeFactor](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script/badge)](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script)
 
 ---
 

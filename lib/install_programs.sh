@@ -75,6 +75,9 @@ install_programs() {
     clamav-daemon \
     clamtk
 
+  print_header "Installing Caffeine..."
+  sudo apt-get install -y caffeine
+
   print_header "Installing Vim..."
   sudo apt-get install -y vim
 

@@ -79,8 +79,8 @@ main() {
 
   # Update and upgrade one last time
   print_header "Updating and upgrading one last time..."
-  sudo apt update
-  sudo apt upgrade -y
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
 
   # Mark the end of our custom Bash profile
   END_OF_BASHRC='# END OF CUSTOM BASHRC'
@@ -90,8 +90,8 @@ main() {
   # Copy and paste custom Bash profile configurations to Zsh profile
   printf "Copying and pasting custom configurations from .bashrc to .zshrc..."
   awk "/$BEGINNING_OF_BASHRC/{flag=1; next} /$END_OF_BASHRC/{flag=0} flag" \
-    "$HOME/.bashrc" \
-    >>"$HOME/.zshrc"
+    "$HOME/.bashrc" |
+    tee -a "$HOME/.zshrc"
 
   # Clean up
   print_header "Cleaning up..."

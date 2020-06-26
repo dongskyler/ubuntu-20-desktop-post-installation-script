@@ -20,7 +20,7 @@
 pre_install_check() {
   # Check user permission
   if [[ $EUID -eq 0 ]]; then
-    printf "This script must be run as a regular user.\n"
+    printf "Error"'!'" This script must be run as a regular user.\n"
     exit 1
   fi
 

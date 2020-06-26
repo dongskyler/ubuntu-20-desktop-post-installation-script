@@ -15,6 +15,7 @@ Author: Skyler Dong (<skyler@skylerdong.com>)
 - [How to use this script](#How-to-use-this-script)
 - [Programs to be installed](#Programs-to-be-installed)
 - [Programs to be uninstalled](#Programs-to-be-uninstalled)
+- [Notes](#Notes)
 - [License](#License)
 
 ---
@@ -105,6 +106,7 @@ sudo apt update &&
 - Tor
 - Tor Browser
 - Vim
+- VirtualBox ([temporarily removed from installation](#Notes))
 - Visual Studio Code
   - Extensions to be installed
     - bmewburn.vscode-intelephense-client
@@ -147,6 +149,12 @@ sudo apt update &&
   - Zoom
   - Skype
   - Settings
+
+---
+
+## Notes
+
+VirtualBox is temporarily removed from the installation, due to complications of its interactive full-window dialogues of agree-to-terms and MOK key setups.
 
 ---
 

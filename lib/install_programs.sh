@@ -201,6 +201,26 @@ bionic/mongodb-org/4.2 multiverse\n" |
   sudo apt update
   sudo apt install -y code
   rm "$HOME/packages.microsoft.gpg"
+  source "$HOME/.bashrc"
+
+  printf "Installing Visual Studio Code extensions..."
+  declare -a vscode_extensions
+  vscode_extensions=(
+    bmewburn.vscode-intelephense-client
+    dsznajder.es7-react-js-snippets
+    eamodio.gitlens
+    esbenp.prettier-vscode
+    foxundermoon.shell-format
+    james-yu.latex-workshop
+    jdforsythe.add-new-line-to-files
+    ms-python.python
+    sibiraj-s.vscode-scss-formatter
+    visualstudioexptteam.vscodeintellicode
+  )
+
+  for ext in "${vscode_extensions[@]}"; do
+    code --install-extension "$ext"
+  done
 
   printf "\033c"
   printf "Installing Tor...\n"

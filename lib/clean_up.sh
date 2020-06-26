@@ -18,5 +18,5 @@
 #
 
 clean_up() {
-  sudo apt autoremove
+  sudo apt-get autoremove
 }

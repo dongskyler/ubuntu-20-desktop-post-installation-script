@@ -18,7 +18,9 @@
 #
 
 reboot_countdown() {
-  printf "Rebooting in 10 seconds.\nPress ANY KEY to abort.\n"
+  printf "\
+Rebooting in 10 seconds.\n\
+Press ANY KEY to abort.\n"
 
   for i in {10..1}; do
     printf "%s\n" "$i"

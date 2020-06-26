@@ -321,8 +321,8 @@ inside 'jupyter' virtual environment."
   rbenv rehash
   rails -v
 
-  print_header "Installing TexLive... This could take a while."
-  sudo apt-get install -y texlive-full
+  # print_header "Installing TexLive... This could take a while."
+  # sudo apt-get install -y texlive-full
 
   print_header "Installing Zsh..."
   sudo apt-get install -y zsh

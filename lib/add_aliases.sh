@@ -18,6 +18,8 @@
 #
 
 add_aliases() {
+  print_header "Adding shell aliases..."
+
   printf 'alias cls='"'"'printf "\033c"'"'\n" \
     >>"$HOME/.bashrc"
   printf "alias grpod='git remote prune origin --dry-run'\n" \

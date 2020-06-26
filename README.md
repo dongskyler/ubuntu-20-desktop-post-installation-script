@@ -49,7 +49,7 @@ The code is highly modularized and well annotated. You can modify the code to su
 - Copy and paste the following command into your terminal and press "Enter":
 ```
 sudo apt update &&
-  sudo apt install -y git &&
+  sudo apt-get install -y git &&
   git clone \
     https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
     "$HOME/.ubuntu-post-installation" \
@@ -108,7 +108,7 @@ sudo apt update &&
 - Tor
 - Tor Browser
 - Vim
-- VirtualBox ([temporarily removed from installation](#Notes))
+- VirtualBox ([temporarily excluded from installation](#Notes))
 - Visual Studio Code
   - Extensions to be installed
     - bmewburn.vscode-intelephense-client
@@ -164,7 +164,7 @@ If the log file is already present, new logs will be appended to the file.
 
 ## Notes
 
-VirtualBox is temporarily removed from the installation, due to complications of its interactive full-window dialogues of agree-to-terms and MOK key setups.
+VirtualBox is temporarily (but indefinitely) excluded from the installation, due to complications of its interactive full-window dialogues of agree-to-terms and MOK key setups.
 
 ---
 

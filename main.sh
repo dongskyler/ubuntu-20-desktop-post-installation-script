@@ -24,7 +24,7 @@ main() {
     source $f
   done
 
-  print_header "Beginning of installation script."
+  print_header "BEGINNING OF INSTALLATION SCRIPT."
 
   # Do pre-install checks
   pre_install_check
@@ -40,6 +40,9 @@ main() {
   printf "\n%s\n" "$BEGINNING_OF_BASHRC" \
     >>"$HOME/.bashrc"
 
+  # Uninstall programs
+  uninstall_programs
+
   # Install programs
   install_programs
 
@@ -51,12 +54,11 @@ main() {
   chmod -R 755 "$HOME/Sites"
 
   # Change the default shell from Bash to Zsh
-  printf "Change the default shell from Bash to Zsh...\n"
+  print_header "Change the default shell from Bash to Zsh..."
   chsh -s /bin/zsh
 
   # Configure terminal profiles
-  printf "Configuring terminal profiles...\n"
-
+  print_header "Configuring terminal profiles..."
   # First, create a dummy profile.
   # For some reason, if we don't, the system cannot properly
   # install other profiles
@@ -98,7 +100,7 @@ main() {
   clean_up
 
   # Notify user of the end of this script
-  print_header "All done. End of installation script."
+  print_header "ALL DONE. END OF INSTALLATION SCRIPT."
 
   # Reboot the computer
   reboot_countdown

@@ -251,14 +251,14 @@ bionic/mongodb-org/4.2 multiverse\n" |
   yes | sudo pip3 install \
     virtualenv \
     virtualenvwrapper
-  export WORKON_HOME="$HOME/.virtualenvs"
-  export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
-  source /usr/local/bin/virtualenvwrapper.sh
-  mkdir -p $WORKON_HOME
-  printf \
-    "VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
+  printf "\
+VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n" \
     >>"$HOME/.bashrc"
+  export WORKON_HOME="$HOME/.virtualenvs"
+  mkdir -p $WORKON_HOME
+  export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
+  source /usr/local/bin/virtualenvwrapper.sh
 
   print_header "Creating a Python virtual environment for Jupyter Notebook \
 called 'jupyter'."
@@ -281,7 +281,6 @@ inside 'jupyter' virtual environment."
     printf %s "${HOME}/.nvm" ||
     printf %s "${XDG_CONFIG_HOME}/nvm")"
   [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
-  source "$HOME/.bashrc"
   command -v nvm
 
   print_header "Installing Node.js and Node Package Manager..."
@@ -296,8 +295,10 @@ inside 'jupyter' virtual environment."
     sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update -y
   sudo apt-get install -y --no-install-recommends yarn
-  export PATH="$PATH:/opt/yarn-[version]/bin"
-  export PATH="$PATH:$(yarn global bin)"
+  printf "export PATH=\""'$PATH'":/opt/yarn-[version]/bin\"\n" |
+    tee -a "$HOME/.bashrc"
+  printf "export PATH=\""'$PATH'":$(yarn global bin)\"\n" |
+    tee -a "$HOME/.bashrc"
   yarn --version
 
   print_header "Installing Ruby..."

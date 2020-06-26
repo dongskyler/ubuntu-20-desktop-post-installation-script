@@ -18,6 +18,10 @@
 #
 
 uninstall_programs() {
+  print_header "Updating apt-get package list..."
+  sudo apt-get update -y
+
+  print_header "Uninstalling programs..."
   sudo apt-get autoremove -y
 
   print_header "Uninstalling Apache2..."

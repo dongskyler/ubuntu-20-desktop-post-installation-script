@@ -48,7 +48,7 @@ The code is highly modularized and well annotated. You can modify the code to su
 
 - Copy and paste the following command into your terminal and press "Enter":
 ```
-sudo apt update &&
+sudo apt-get update -y &&
   sudo apt-get install -y git &&
   git clone \
     https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \

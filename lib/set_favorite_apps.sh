@@ -18,6 +18,8 @@
 #
 
 set_favorite_apps() {
+  print_header "Pinning favorite apps to dash..."
+
   gsettings set org.gnome.shell favorite-apps "[\
     'org.gnome.Nautilus.desktop', \
     'org.gnome.Terminal.desktop', \

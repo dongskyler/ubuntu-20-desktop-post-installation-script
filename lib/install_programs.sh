@@ -18,16 +18,10 @@
 #
 
 install_programs() {
-  print_header "Updating apt package lists..."
+  print_header "Installing programs..."
+
+  print_header "Updating apt-get package list..."
   sudo apt-get update -y
-
-  print_header "Installing cURL..."
-  sudo apt-get install -y curl
-  curl --version
-
-  print_header "Installing Wget..."
-  sudo apt-get install -y wget
-  wget --version
 
   print_header "Upgrading all packages..."
   sudo apt-get upgrade -y
@@ -52,13 +46,21 @@ install_programs() {
     dconf-cli \
     uuid-runtime
 
-  print_header "Installing Git..."
-  sudo apt-get install -y git
+  print_header "Installing cURL..."
+  sudo apt-get install -y curl
+  curl --version
+
+  print_header "Installing Wget..."
+  sudo apt-get install -y wget
+  wget --version
 
   print_header "Installing GnuPG..."
   sudo apt-get install -y \
     gnupg \
     gnupg-agent
+
+  print_header "Installing Git..."
+  sudo apt-get install -y git
 
   print_header "Installing PulseAudio and PavuControl..."
   sudo apt-get install -y \
@@ -127,8 +129,8 @@ main\n" |
       virtualenvwrapper
   printf "\
 VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
-source /usr/local/bin/virtualenvwrapper.sh\n" \
-    >>"$HOME/.bashrc"
+source /usr/local/bin/virtualenvwrapper.sh\n" |
+    tee -a "$HOME/.bashrc"
   export WORKON_HOME="$HOME/.virtualenvs"
   mkdir -p $WORKON_HOME
   export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
@@ -261,7 +263,7 @@ multiverse\n" |
   sudo apt-get install -y mongodb-org
 
   print_header "Installing ElasticSearch..."
-  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch |
+  wget -qO- https://artifacts.elastic.co/GPG-KEY-elasticsearch |
     sudo apt-key add -
   printf "\
 deb https://artifacts.elastic.co/packages/7.x/apt \
@@ -366,7 +368,7 @@ main\n" |
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \
     "$HOME/.zsh-syntax-highlighting" \
     --depth 1
-  printf "source \""'$HOME'"\
-  /.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n" \
-    >>"$HOME/.zshrc"
+  printf "\
+source \""'$HOME'"/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh\"\n" |
+    tee -a "$HOME/.zshrc"
 }

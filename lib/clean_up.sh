@@ -18,5 +18,7 @@
 #
 
 clean_up() {
+  print_header "Cleaning up..."
+
   sudo apt-get autoremove
 }

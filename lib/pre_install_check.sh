@@ -18,6 +18,8 @@
 #
 
 pre_install_check() {
+  print_header "Pre-installation checks..."
+
   # Check user permission
   if [[ $EUID -eq 0 ]]; then
     printf "Error"'!'" This script must be run as a regular user.\n"
@@ -31,4 +33,15 @@ pre_install_check() {
   # Also output the datetime as the first line of the log
   sudo -v || exit 1
 
+  # Create some directories
+  print_header "Creating some directories..."
+
+  # localhost:8080 will be rooted here
+  mkdir "$HOME/Sites"
+
+  # Mark the beginning of our custom Bash profile
+  printf "Mark the beginning of our custom Bash profile\n"
+  BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
+  printf "\n%s\n" "$BEGINNING_OF_BASHRC" |
+    tee -a "$HOME/.bashrc"
 }

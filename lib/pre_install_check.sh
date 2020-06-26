@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author:
-# Skyler Dong <skylerdong.com>
+# Skyler Dong <skyler@skylerdong.com>
 #
 # Description:
 # Script for installing essential programs on a freshly installed

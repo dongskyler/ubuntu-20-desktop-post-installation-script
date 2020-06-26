@@ -127,12 +127,12 @@ main\n" |
     sudo pip3 install \
       virtualenv \
       virtualenvwrapper
+  export WORKON_HOME="$HOME/.virtualenvs"
+  mkdir -p $WORKON_HOME
   printf "\
 VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'\n\
 source /usr/local/bin/virtualenvwrapper.sh\n" |
     tee -a "$HOME/.bashrc"
-  export WORKON_HOME="$HOME/.virtualenvs"
-  mkdir -p $WORKON_HOME
   export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3'
   source /usr/local/bin/virtualenvwrapper.sh
 
@@ -179,24 +179,28 @@ main\n" |
     sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update -y
   sudo apt-get install -y --no-install-recommends yarn
-  printf "export PATH=\""'$PATH'":/opt/yarn-[version]/bin\"\n" |
+  printf 'export PATH="$PATH:/opt/yarn-[version]/bin"\n' |
     tee -a "$HOME/.bashrc"
-  printf "export PATH=\""'$PATH'":$(yarn global bin)\"\n" |
+  export PATH="$PATH:/opt/yarn-[version]/bin"
+  printf 'export PATH="$PATH:$(yarn global bin)"\n' |
     tee -a "$HOME/.bashrc"
+  export PATH="$PATH:$(yarn global bin)"
   yarn --version
 
-  print_header "Installing Ruby..."
+  print_header "Installing Ruby... This could take a while."
   git clone https://github.com/rbenv/rbenv.git \
     "$HOME/.rbenv"
-  printf "export PATH=\""'$HOME'"/.rbenv/bin:"'$PATH'"\"\n" |
+  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' |
     tee -a "$HOME/.bashrc"
+  export PATH="$HOME/.rbenv/bin:$PATH"
   printf 'eval "$(rbenv init -)"\n' |
     tee -a "$HOME/.bashrc"
+  eval "$(rbenv init -)"
   git clone https://github.com/rbenv/ruby-build.git \
     "$HOME/.rbenv/plugins/ruby-build"
-  printf "\
-export PATH=\""'$HOME'"/.rbenv/plugins/ruby-build/bin:"'$PATH'"\"\n" |
+  printf 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' |
     tee -a "$HOME/.bashrc"
+  export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
   rbenv install 2.7.1
   rbenv global 2.7.1
   ruby -v
@@ -209,44 +213,6 @@ export PATH=\""'$HOME'"/.rbenv/plugins/ruby-build/bin:"'$PATH'"\"\n" |
 
   print_header "Installing ELinks..."
   sudo apt-get install -y elinks
-
-  print_header "Installing Nginx..."
-  sudo apt-get install -y nginx
-  sudo systemctl start nginx.service
-  sudo systemctl enable nginx.service
-
-  printf "Creating an HTML test page...\n"
-  printf "\
-  <"'!'"DOCTYPE html>\n\
-  <html>\n\
-    <head>\n\
-      <title>Test page</title>\n\
-    </head>\n\
-    <body>\
-      Test page\n\
-    </body>\n\
-  </html>\n" |
-    tee "$HOME/Sites/index.html"
-
-  print_header "Installing PHP..."
-  sudo apt-get install -y \
-    php \
-    php-fpm \
-    php-mysql
-  sudo systemctl start php7.4-fpm.service
-  sudo systemctl enable php7.4-fpm.service
-  sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
-    /etc/nginx/conf.d/
-  sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
-    /etc/nginx/conf.d/localhost.conf
-  sudo sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' \
-    /etc/php/7.4/cli/php.ini
-  sudo systemctl restart php7.4-fpm.service
-  sudo systemctl restart nginx.service
-
-  printf "Creating a PHP test page...\n"
-  printf "<?php phpinfo(); ?>\n" |
-    tee "$HOME/Sites/info.php"
 
   print_header "Installing MySQL..."
   sudo apt-get install -y mysql-server
@@ -272,6 +238,26 @@ main\n" |
     sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
   sudo apt-get update -y
   sudo apt-get install -y elasticsearch
+
+  print_header "Installing Nginx..."
+  sudo apt-get install -y nginx
+  sudo systemctl start nginx.service
+  sudo systemctl enable nginx.service
+
+  print_header "Installing PHP..."
+  sudo apt-get install -y php-fpm
+  sudo apt-get install -y php-mysql
+  sudo apt-get install -y php
+  sudo systemctl start php7.4-fpm.service
+  sudo systemctl enable php7.4-fpm.service
+  sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
+    /etc/nginx/conf.d/
+  sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
+    /etc/nginx/conf.d/localhost.conf
+  sudo sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' \
+    /etc/php/7.4/cli/php.ini
+  sudo systemctl restart php7.4-fpm.service
+  sudo systemctl restart nginx.service
 
   print_header "Installing Docker..."
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg |

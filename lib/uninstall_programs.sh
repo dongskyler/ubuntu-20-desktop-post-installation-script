@@ -23,12 +23,4 @@ uninstall_programs() {
 
   print_header "Uninstalling programs..."
   sudo apt-get autoremove -y
-
-  print_header "Uninstalling Apache2..."
-  sudo systemctl disable apache2.service
-  sudo systemctl stop apache2.service
-  sudo apt-get purge -y apache2
-  sudo apt-get autoremove -y
-  sudo systemctl daemon-reload
-  sudo systemctl reset-failed
 }

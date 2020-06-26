@@ -133,7 +133,7 @@ sudo apt-get update -y &&
 
 ## Programs to be uninstalled
 
-- Apache2
+- None yet
 
 ---
 

@@ -46,15 +46,17 @@ main() {
 
   # Configure terminal profiles
   print_header "Configuring terminal profiles..."
-  # First, create a dummy profile.
-  # For some reason, if we don't, the system cannot properly
-  # install other profiles
+  # First, create a dummy profile. For some reason,
+  # if we don't, the system cannot properly install profiles
+  printf "Create a dummy terminal profile 'Dummy'...\n"
   create_new_terminal_profile Dummy
 
-  # Install terminal profile 'Earthsong' and set it as default
-  print_header "Installing terminal profile 'Earthsong'..."
+  # Install terminal profile 'Earthsong'
+  printf "Installing terminal profile 'Earthsong'...\n"
   printf "36\n" |
     bash -c "$(wget -qO- https://git.io/vQgMr)"
+
+  # Set profile'Earthsong' as default
   printf "Set 'Earthsong' as the default profile...\n"
   set_default_terminal_profile Earthsong
 
@@ -67,7 +69,7 @@ main() {
   # Clean up
   clean_up
 
-  # Notify user of the end of this script
+  # Mark the end of this script
   print_header "ALL DONE. END OF INSTALLATION SCRIPT."
 
   # Reboot the computer

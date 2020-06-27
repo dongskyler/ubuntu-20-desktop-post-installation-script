@@ -32,7 +32,7 @@ test() {
     source "$f"
   done
 
-  print_header_test "Beginning of test script."
+  print_header_test "BEGINNING OF THE TEST SCRIPT."
 
   sudo date
 
@@ -43,7 +43,7 @@ test() {
 
   test_lib
 
-  print_header_test "All done. End of test script."
+  print_header_test "ALL DONE. END OF THE TEST SCRIPT."
 }
 
 test "$@" | tee -a "$HOME/.ubuntu_post_install.log"

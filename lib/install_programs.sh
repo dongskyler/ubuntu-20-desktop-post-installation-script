@@ -55,25 +55,19 @@ install_programs() {
   wget --version
 
   print_header "Installing GnuPG..."
-  sudo apt-get install -y \
-    gnupg \
-    gnupg-agent
+  sudo apt-get install -y gnupg gnupg-agent
 
   print_header "Installing Git..."
   sudo apt-get install -y git
 
   print_header "Installing PulseAudio and PavuControl..."
-  sudo apt-get install -y \
-    pulseaudio \
-    pavucontrol
+  sudo apt-get install -y pulseaudio pavucontrol
 
   print_header "Installing Flameshot..."
   sudo apt-get install -y flameshot
 
   print_header "Installing ClamAV and ClamTK..."
-  sudo apt-get install -y \
-    clamav-daemon \
-    clamtk
+  sudo apt-get install -y clamav-daemon clamtk
 
   print_header "Installing Caffeine..."
   sudo apt-get install -y caffeine
@@ -126,10 +120,7 @@ main\n" |
   sudo apt-get install -y python3-pip
 
   print_header "Installing virtualenv via pip3..."
-  yes |
-    sudo pip3 install \
-      virtualenv \
-      virtualenvwrapper
+  yes | sudo pip3 install virtualenv virtualenvwrapper
   export WORKON_HOME="$HOME/.virtualenvs"
   mkdir -p $WORKON_HOME
   printf "\
@@ -148,12 +139,7 @@ for Jupyter Notebook called 'jupyter'."
 Installing Jupyter Notebook, numpy, pandas and matplotlib,\n\
 inside 'jupyter' virtual environment."
   workon jupyter
-  yes |
-    sudo pip3 install -U \
-      notebook \
-      numpy \
-      pandas \
-      matplotlib
+  yes | sudo pip3 install -U notebook numpy pandas matplotlib
   deactivate jupyter
 
   print_header "Installing Node Version Manager..."
@@ -173,8 +159,7 @@ inside 'jupyter' virtual environment."
   npm --version
 
   print_header "Installing Yarn..."
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg |
-    sudo apt-key add -
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   printf "\
 deb https://dl.yarnpkg.com/debian/ \
 stable \
@@ -193,11 +178,9 @@ main\n" |
   print_header "Installing Ruby... This could take a while."
   git clone https://github.com/rbenv/rbenv.git \
     "$HOME/.rbenv"
-  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' |
-    tee -a "$HOME/.bashrc"
+  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' | tee -a "$HOME/.bashrc"
   export PATH="$HOME/.rbenv/bin:$PATH"
-  printf 'eval "$(rbenv init -)"\n' |
-    tee -a "$HOME/.bashrc"
+  printf 'eval "$(rbenv init -)"\n' | tee -a "$HOME/.bashrc"
   eval "$(rbenv init -)"
   git clone https://github.com/rbenv/ruby-build.git \
     "$HOME/.rbenv/plugins/ruby-build"
@@ -271,10 +254,7 @@ $(lsb_release -cs) \
 stable\n" |
     sudo tee /etc/apt/sources.list.d/docker.list
   sudo apt-get update -y
-  sudo apt-get install -y \
-    docker-ce \
-    docker-ce-cli \
-    containerd.io
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
   print_header "Installing Tor..."
   printf "\
@@ -293,9 +273,7 @@ main\n" |
   gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 |
     sudo apt-key add -
   sudo apt-get update -y
-  sudo apt-get install -y \
-    tor \
-    deb.torproject.org-keyring
+  sudo apt-get install -y tor deb.torproject.org-keyring
 
   print_header "Installing Tor Browser..."
   sudo apt-get install -y torbrowser-launcher
@@ -321,8 +299,7 @@ main\n" |
   rm "$HOME/Downloads/skypeforlinux-64.deb"
 
   print_header "Installing Zoom..."
-  wget https://zoom.us/client/latest/zoom_amd64.deb \
-    -P "$HOME/Downloads/"
+  wget https://zoom.us/client/latest/zoom_amd64.deb -P "$HOME/Downloads/"
   sudo apt-get install -y "$HOME/Downloads/zoom_amd64.deb"
   rm "$HOME/Downloads/zoom_amd64.deb"
 

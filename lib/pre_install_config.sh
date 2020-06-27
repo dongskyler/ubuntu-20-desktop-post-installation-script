@@ -42,6 +42,5 @@ pre_install_config() {
   # Mark the beginning of our custom Bash profile
   print_header "Mark the beginning of our custom Bash profile"
   BEGINNING_OF_BASHRC='# BEGINNING OF CUSTOM BASHRC'
-  printf "\n%s\n" "$BEGINNING_OF_BASHRC" |
-    tee -a "$HOME/.bashrc"
+  printf "\n%s\n" "$BEGINNING_OF_BASHRC" | tee -a "$HOME/.bashrc"
 }

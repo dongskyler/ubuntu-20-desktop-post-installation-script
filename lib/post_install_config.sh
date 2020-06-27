@@ -40,8 +40,7 @@ post_install_config() {
   # Mark the end of our custom Bash profile
   print_header "Mark the end of our custom Bash profile."
   END_OF_BASHRC='# END OF CUSTOM BASHRC'
-  printf "\n%s\n" "$END_OF_BASHRC" |
-    tee -a "$HOME/.bashrc"
+  printf "\n%s\n" "$END_OF_BASHRC" | tee -a "$HOME/.bashrc"
 
   # Copy and paste custom Bash profile configurations to Zsh profile
   print_header "Copying and pasting custom configurations from .bashrc to .zshrc..."

@@ -46,8 +46,7 @@ main() {
 
   # Install terminal profile 'Earthsong'
   printf "Installing terminal profile 'Earthsong'...\n"
-  printf "36\n" |
-    bash -c "$(wget -qO- https://git.io/vQgMr)"
+  printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
   # Set profile'Earthsong' as default
   printf "Set 'Earthsong' as the default profile...\n"
@@ -69,5 +68,4 @@ main() {
   reboot_countdown
 }
 
-main "$@" |
-  tee -a "$HOME/.ubuntu_post_install.log"
+main "$@" | tee -a "$HOME/.ubuntu_post_install.log"

@@ -21,21 +21,10 @@ post_install_config() {
   print_header "Configuring the system after installing programs..."
 
   print_header "Creating an HTML test page..."
-  printf "\
-  <"'!'"DOCTYPE html>\n\
-  <html>\n\
-    <head>\n\
-      <title>Test page</title>\n\
-    </head>\n\
-    <body>\
-      Test page\n\
-    </body>\n\
-  </html>\n" |
-    tee "$HOME/Sites/index.html"
+  cp ./config/html/index.html "$HOME/Sites/"
 
   print_header "Creating a PHP test page..."
-  printf "<?php phpinfo(); ?>\n" |
-    tee "$HOME/Sites/info.php"
+  cp ./config/php/info.php "$HOME/Sites/"
 
   # Make sure files in $HOME/Sites are readable
   # and excutable by root (whom Nginx, PHP, etc are run as)
@@ -51,8 +40,7 @@ post_install_config() {
   # Mark the end of our custom Bash profile
   print_header "Mark the end of our custom Bash profile."
   END_OF_BASHRC='# END OF CUSTOM BASHRC'
-  printf "\n%s\n" "$END_OF_BASHRC" |
-    tee -a "$HOME/.bashrc"
+  printf "\n%s\n" "$END_OF_BASHRC" | tee -a "$HOME/.bashrc"
 
   # Copy and paste custom Bash profile configurations to Zsh profile
   print_header "Copying and pasting custom configurations from .bashrc to .zshrc..."

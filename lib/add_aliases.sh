@@ -20,12 +20,10 @@
 add_aliases() {
   print_header "Adding shell aliases..."
 
-  printf 'alias cls='"'"'printf "\033c"'"'\n" \
-    >>"$HOME/.bashrc"
+  printf 'alias cls='"'"'printf "\033c"'"'\n" >>"$HOME/.bashrc"
   printf "alias grpod='git remote prune origin --dry-run'\n" \
     >>"$HOME/.bashrc"
-  printf "alias grpo='git remote prune origin'\n" \
-    >>"$HOME/.bashrc"
+  printf "alias grpo='git remote prune origin'\n" >>"$HOME/.bashrc"
   printf "alias gds='"'git checkout -q master && git for-each-ref refs/heads/ "--format='"%%"'(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]] && git branch -D ''$branch'"; done'\n" \
     >>"$HOME/.bashrc"
 }

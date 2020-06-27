@@ -176,8 +176,7 @@ wget -qO- \
   sudo apt-key add -
 printf "\
 deb http://download.virtualbox.org/virtualbox/debian \
-focal \
-non-free contrib\n" |
+focal non-free contrib\n" |
   sudo tee /etc/apt/sources.list.d/virtualbox.org.list
 
 sudo apt-get update -y

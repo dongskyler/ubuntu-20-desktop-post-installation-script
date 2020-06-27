@@ -17,12 +17,22 @@
 # https://opensource.org/licenses/MIT.
 #
 
-main() {
+print_header_test() {
+  local custom_text="$1"
+  printf "\n\
+**********************************************************************\n\
+%s\n" "${custom_text}"
+  date
+  printf "\
+**********************************************************************\n\n"
+}
+
+test() {
   for f in ./lib/*.sh; do
     source "$f"
   done
 
-  print_header "Beginning of test script."
+  print_header_test "Beginning of test script."
 
   sudo date
 
@@ -33,7 +43,7 @@ main() {
 
   test_lib
 
-  print_header "All done. End of test script."
+  print_header_test "All done. End of test script."
 }
 
-main "$@" | tee -a "$HOME/.ubuntu_post_install.log"
+test "$@" | tee -a "$HOME/.ubuntu_post_install.log"

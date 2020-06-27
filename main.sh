@@ -69,5 +69,4 @@ main() {
   reboot_countdown
 }
 
-main "$@" |
-  tee -a "$HOME/.ubuntu_post_install.log"
+main "$@" | tee -a "$HOME/.ubuntu_post_install.log"

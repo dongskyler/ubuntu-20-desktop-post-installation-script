@@ -17,7 +17,7 @@
 # https://opensource.org/licenses/MIT.
 #
 
-post_install_check() {
+post_install_config() {
   print_header "Configuring the system after installing programs..."
 
   print_header "Creating an HTML test page..."

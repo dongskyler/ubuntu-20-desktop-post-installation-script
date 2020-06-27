@@ -17,7 +17,7 @@
 # https://opensource.org/licenses/MIT.
 #
 
-pre_install_check() {
+pre_install_config() {
   print_header "Configuring the system before installing programs..."
 
   # Check user permission

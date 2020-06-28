@@ -236,8 +236,7 @@ main\n" |
   sudo apt-get install -y php
   sudo systemctl start php7.4-fpm.service
   sudo systemctl enable php7.4-fpm.service
-  sudo cp "$HOME/.ubuntu-post-installation/config/nginx/localhost.conf" \
-    /etc/nginx/conf.d/
+  sudo cp ./config/nginx/localhost.conf /etc/nginx/conf.d/
   sudo sed -i -e 's/USERNAME_PLACEHOLDER/'"$USER"'/g' \
     /etc/nginx/conf.d/localhost.conf
   sudo sed -i -e 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' \

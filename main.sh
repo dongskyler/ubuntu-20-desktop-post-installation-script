@@ -48,9 +48,12 @@ main() {
   printf "Installing terminal profile 'Earthsong'...\n"
   printf "36\n" | bash -c "$(wget -qO- https://git.io/vQgMr)"
 
-  # Set profile'Earthsong' as default
+  # Set profile 'Earthsong' as default
   printf "Set 'Earthsong' as the default profile...\n"
   set_default_terminal_profile Earthsong
+
+  # Delete dummy terminal profile 'Dummy'
+  delete_terminal_profile Dummy
 
   # Set favoriate apps to dash
   set_favorite_apps

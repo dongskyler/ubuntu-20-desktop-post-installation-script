@@ -17,7 +17,7 @@
 # https://opensource.org/licenses/MIT.
 #
 
-set_default_terminal_profile() {
+delete_terminal_profile() {
   local dconfdir=/org/gnome/terminal/legacy/profiles:
   local profile_ids=($(dconf list $dconfdir/ |
     grep ^: |
@@ -29,8 +29,7 @@ set_default_terminal_profile() {
   for id in "${profile_ids[@]}"; do
     if [[ $(dconf read "${dconfdir}/:${id}/visible-name") == \
     "'""$profile_name""'" ]]; then
-      gsettings set org.gnome.Terminal.ProfilesList default "${id}"
-      break
+      dconf dump $dconfdir/:${id}:
     fi
   done
 }

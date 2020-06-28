@@ -29,7 +29,7 @@ delete_terminal_profile() {
   for id in "${profile_ids[@]}"; do
     if [[ $(dconf read "${dconfdir}/:${id}/visible-name") == \
     "'""$profile_name""'" ]]; then
-      dconf dump $dconfdir/:${id}:
+      dconf dump $dconfdir/:${id}
     fi
   done
 }

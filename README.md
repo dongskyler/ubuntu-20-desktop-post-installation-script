@@ -37,6 +37,11 @@ The code is under MIT [license](#License). You can modify the code to suit your 
 [![CodeFactor](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script/badge)](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+[![GitHub issues](https://img.shields.io/github/issues/dongskyler/ubuntu-20-desktop-post-installation-script.svg)](https://GitHub.com/dongskyler/ubuntu-20-desktop-post-installation-script/issues/)
+[![GitHub issues-closed](https://img.shields.io/github/issues-closed/dongskyler/ubuntu-20-desktop-post-installation-script.svg)](https://GitHub.com/dongskyler/ubuntu-20-desktop-post-installation-script/issues?q=is%3Aissue+is%3Aclosed)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/dongskyler/ubuntu-20-desktop-post-installation-script.svg)](https://GitHub.com/dongskyler/ubuntu-20-desktop-post-installation-script/pulls/)
+[![GitHub pull-requests closed](https://img.shields.io/github/issues-pr-closed/dongskyler/ubuntu-20-desktop-post-installation-script.svg)](https://GitHub.com/dongskyler/ubuntu-20-desktop-post-installation-script/pulls/)
+
 ---
 
 ## How to use this script

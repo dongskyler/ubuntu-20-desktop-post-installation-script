@@ -2,8 +2,6 @@
 
 Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script](https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script)
 
-Author: Skyler Dong (<skyler@skylerdong.com>)
-
 ---
 
 ## Table of contents

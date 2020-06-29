@@ -4,14 +4,12 @@ Repository: [https://github.com/dongskyler/ubuntu-20-desktop-post-installation-s
 
 Author: Skyler Dong (<skyler@skylerdong.com>)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 ---
 
 ## Table of contents
 
 - [Description](#Description)
-- [Status](#Status)
+- [Badges](#Badges)
 - [How to use this script](#How-to-use-this-script)
 - [Programs to be installed](#Programs-to-be-installed)
 - [Programs to be uninstalled](#Programs-to-be-uninstalled)
@@ -34,9 +32,10 @@ The code is under MIT [license](#License). You can modify the code to suit your 
 
 ---
 
-## Status
+## Badges
 
 [![CodeFactor](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script/badge)](https://www.codefactor.io/repository/github/dongskyler/ubuntu-20-desktop-post-installation-script)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -51,8 +50,8 @@ sudo apt-get update -y &&
   sudo apt-get install -y git &&
   git clone \
     https://github.com/dongskyler/ubuntu-20-desktop-post-installation-script.git \
-    "$HOME/.ubuntu-post-installation" --depth 1 &&
-  cd "$HOME/.ubuntu-post-installation/" &&
+    "~/.ubuntu-post-installation" --depth 1 &&
+  cd "~/.ubuntu-post-installation/" &&
   bash ./main.sh
 ```
 
@@ -80,12 +79,12 @@ sudo apt-get update -y &&
 - MongoDB Community Edition
 - MySQL
 - Nginx
-  - `http://localhost:8080` pointing at "$HOME/Sites/", with Nginx and PHP hooked up
+  - `http://localhost:5000` pointing at "~/Sites/", with Nginx and PHP hooked up
 - Node.js
 - Node Version Manager (nvm)
 - Node Package Manager (npm)
 - PHP
-  - `http://localhost:8080` pointing at "$HOME/Sites/", with Nginx and PHP hooked up
+  - `http://localhost:5000` pointing at "~/Sites/", with Nginx and PHP hooked up
   - Packages to be installed
     - php
     - php-fpm
@@ -158,7 +157,7 @@ sudo apt-get update -y &&
 
 ## Logs
 
-A log will be generated at "$HOME/.ubuntu_post_install.log".
+A log will be generated at "~/.ubuntu_post_install.log".
 
 If the log file is already present, new logs will be appended to the file.
 

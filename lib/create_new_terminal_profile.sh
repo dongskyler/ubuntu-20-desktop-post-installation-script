@@ -28,8 +28,8 @@ create_new_terminal_profile() {
     tr -d "]")"
   local profile_id="$(uuidgen)"
 
-  [ -z "$profile_ids_old" ] && local profile_ids_old="[" # if there's no `list` key
-  [ ${#profile_ids[@]} -gt 0 ] && local delimiter=,      # if the list is empty
+  [[ -z "$profile_ids_old" ]] && local profile_ids_old="[" # if there's no `list` key
+  [[ ${#profile_ids[@]} -gt 0 ]] && local delimiter=,      # if the list is empty
   dconf write $dconfdir/list \
     "${profile_ids_old}${delimiter} '$profile_id']"
   dconf write "$dconfdir/:$profile_id"/visible-name "'$profile_name'"

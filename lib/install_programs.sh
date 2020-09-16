@@ -75,6 +75,9 @@ install_programs() {
   print_header "Installing Vim..."
   sudo apt-get install -y vim
 
+  print_header "Installing NeoVim..."
+  sudo apt-get install -y neovim
+
   print_header "Installing Visual Studio Code..."
   curl https://packages.microsoft.com/keys/microsoft.asc |
     gpg --dearmor \
@@ -113,8 +116,10 @@ main\n" |
     code --install-extension "$vs_ext"
   done
 
-  print_header "Installing TexLive... This could take a while."
-  sudo apt-get install -y texlive-full
+  unset vs_exit
+
+  # print_header "Installing TexLive... This could take a while."
+  # sudo apt-get install -y texlive-full
 
   print_header "Installing pip3 for Python 3..."
   sudo apt-get install -y python3-pip
@@ -214,16 +219,16 @@ multiverse\n" |
   sudo apt-get update -y
   sudo apt-get install -y mongodb-org
 
-  print_header "Installing ElasticSearch..."
-  wget -qO- https://artifacts.elastic.co/GPG-KEY-elasticsearch |
-    sudo apt-key add -
-  printf "\
-deb https://artifacts.elastic.co/packages/7.x/apt \
-stable \
-main\n" |
-    sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-  sudo apt-get update -y
-  sudo apt-get install -y elasticsearch
+  # print_header "Installing ElasticSearch..."
+  # wget -qO- https://artifacts.elastic.co/GPG-KEY-elasticsearch |
+    # sudo apt-key add -
+  # printf "\
+# deb https://artifacts.elastic.co/packages/7.x/apt \
+# stable \
+# main\n" |
+    # sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+  # sudo apt-get update -y
+  # sudo apt-get install -y elasticsearch
 
   print_header "Installing Nginx..."
   sudo apt-get install -y nginx

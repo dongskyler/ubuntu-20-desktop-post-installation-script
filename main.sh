@@ -23,6 +23,8 @@ main() {
     source "$f"
   done
 
+  unset f
+
   print_header "BEGINNING OF INSTALLATION SCRIPT."
 
   # Configuring the system before installing programs
